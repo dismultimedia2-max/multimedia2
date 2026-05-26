@@ -9,13 +9,15 @@ import EmailCaptureScreen from './components/EmailCaptureScreen';
 import ThankYouScreen from './components/ThankYouScreen';
 import { saveToGoogleSheets } from './utils/googleSheets';
 import { triggerDispenser } from './utils/dispenser';
-import { calculateHairType, getPrimaryProduct } from './utils/hairAnalysis';
+import { calculateHairType, getPrimaryProduct, getHairRoutine } from './utils/hairAnalysis';
+import type { HairRoutine } from './utils/hairAnalysis';
 import q1Bg from '../imports/mascarillas.png';
 import q2Bg from '../imports/producto_con_flores.png';
 import q3Bg from '../imports/naranjas_vertical.png';
 import q4Bg from '../imports/pantalon_a_rayas_vertical.png';
 import q5Bg from '../imports/productos_ducha_vertical.png';
 import q6Bg from '../imports/serum_vertical.png';
+import summaryBg from '../imports/bandeja_de_productos.png';
 
 export type Answer = {
   question: string;
@@ -31,6 +33,7 @@ export default function App() {
   const [hairType, setHairType] = useState('');
   const [hairNeeds, setHairNeeds] = useState<string[]>([]);
   const [primaryProduct, setPrimaryProduct] = useState('');
+  const [hairRoutine, setHairRoutine] = useState<HairRoutine | null>(null);
   const [providedEmail, setProvidedEmail] = useState(false);
   const [showDrops, setShowDrops] = useState(false);
   const [dropsVisible, setDropsVisible] = useState(true);
@@ -127,6 +130,7 @@ export default function App() {
     setHairType(result.type);
     setHairNeeds(result.needs);
     setPrimaryProduct(getPrimaryProduct(answers));
+    setHairRoutine(getHairRoutine(answers));
     setCurrentScreen(9); // results
   };
 
@@ -156,6 +160,7 @@ export default function App() {
     setHairType('');
     setHairNeeds([]);
     setPrimaryProduct('');
+    setHairRoutine(null);
     setProvidedEmail(false);
   };
 
@@ -185,11 +190,13 @@ export default function App() {
       questions={questions}
       onEdit={handleEditAnswer}
       onFinish={handleFinishDiagnostic}
+      bgImage={summaryBg}
     />,
     <ResultsScreen
       key="results"
       hairType={hairType}
       needs={hairNeeds}
+      routine={hairRoutine ?? getHairRoutine(answers)}
       onContinue={() => setCurrentScreen(10)}
     />,
     <EmailCaptureScreen

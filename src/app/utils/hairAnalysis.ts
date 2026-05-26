@@ -5,13 +5,26 @@ export interface HairAnalysis {
   needs: string[];
 }
 
+export interface RoutineItem {
+  name: string;
+  tagline: string;
+  benefit: string;
+}
+
+export interface HairRoutine {
+  shot: RoutineItem;
+  shampoo: RoutineItem;
+  treatment: RoutineItem;
+  styling: RoutineItem;
+}
+
 export function calculateHairType(answers: Answer[]): HairAnalysis {
-  const sebum        = answers[0]?.answer || '';
-  const waterReact   = answers[1]?.answer || '';
-  const shape        = answers[2]?.answer || '';
-  const treatment    = answers[3]?.answer || '';
-  const thickness    = answers[4]?.answer || '';
-  const scalp        = answers[5]?.answer || '';
+  const sebum      = answers[0]?.answer || '';
+  const waterReact = answers[1]?.answer || '';
+  const shape      = answers[2]?.answer || '';
+  const treatment  = answers[3]?.answer || '';
+  const thickness  = answers[4]?.answer || '';
+  const scalp      = answers[5]?.answer || '';
 
   let type = '';
   const needs: string[] = [];
@@ -57,27 +70,69 @@ export function calculateHairType(answers: Answer[]): HairAnalysis {
   return { type, needs: needs.slice(0, 3) };
 }
 
-export function getRecommendedProducts(needs: string[]): string[] {
-  const out: string[] = [];
-  if (needs.some(n =>
-    n.includes('hidratación') || n.includes('nutrición') ||
-    n.includes('equilibrio') || n.includes('grasa') || n.includes('suave')
-  )) out.push('Aquaella');
-  if (needs.some(n =>
-    n.includes('frizz') || n.includes('rizos') || n.includes('definición')
-  )) out.push('Selene');
-  if (needs.some(n =>
-    n.includes('brillo') || n.includes('suavidad')
-  )) out.push('Lumina');
-  if (needs.some(n =>
-    n.includes('fuerza') || n.includes('reparación') ||
-    n.includes('resistencia') || n.includes('volumen')
-  )) out.push('Fortana');
-  if (out.length === 0) out.push('Aquaella');
-  return out;
+export function getHairRoutine(answers: Answer[]): HairRoutine {
+  const sebum     = answers[0]?.answer || '';
+  const shape     = answers[2]?.answer || '';
+  const treatment = answers[3]?.answer || '';
+  const thickness = answers[4]?.answer || '';
+  const scalp     = answers[5]?.answer || '';
+
+  const isOily      = sebum.includes('Graso') || scalp.includes('Graso');
+  const isDry       = sebum.includes('Seco')  || scalp.includes('Seco');
+  const isCurly     = shape.includes('Ruloso') || shape.includes('rizado');
+  const isWavy      = shape.includes('Ondulado');
+  const isTreated   = treatment.includes('Decoloración') || treatment.includes('Parcial');
+  const isFine      = thickness.includes('Fino');
+
+  // ONE shot
+  let shot: RoutineItem;
+  if (isTreated) {
+    shot = { name: 'Fortana', tagline: 'Shot de Fuerza y Resistencia', benefit: 'Reconstruye fibras dañadas por decoloración' };
+  } else if (isFine) {
+    shot = { name: 'Freya', tagline: 'Shot de Crecimiento y Volumen', benefit: 'Más densidad y volumen desde la raíz' };
+  } else if (isCurly || isWavy || isOily) {
+    shot = { name: 'Selene', tagline: 'Shot de Control de Frizz', benefit: 'Rizos definidos sin frizz todo el día' };
+  } else if (isDry) {
+    shot = { name: 'Aquaella', tagline: 'Shot de Nutrición e Hidratación', benefit: 'Hidratación profunda y duradera' };
+  } else {
+    shot = { name: 'Lumina', tagline: 'Shot de Brillo', benefit: 'Luminosidad y suavidad extrema' };
+  }
+
+  // Shampoo EROS
+  let shampoo: RoutineItem;
+  if (isOily) {
+    shampoo = { name: 'EROS Detox', tagline: 'Shampoo Detox', benefit: 'Elimina el exceso de sebo sin resecar' };
+  } else if (!isDry && !isTreated) {
+    shampoo = { name: 'EROS H6', tagline: 'Shampoo Equilibrante', benefit: 'Equilibra raíz y puntas de forma duradera' };
+  } else {
+    shampoo = { name: 'EROS H2', tagline: 'Shampoo Hidratante', benefit: 'Limpieza suave con hidratación activa' };
+  }
+
+  // Acondicionador o Máscara
+  let proc: RoutineItem;
+  if (isOily && !isTreated && !isCurly) {
+    proc = { name: 'ALBA', tagline: 'Acondicionador Equilibrante', benefit: 'Acondicionamiento sin apelmazar el cabello' };
+  } else {
+    proc = { name: 'AURORA', tagline: 'Máscara Capilar Reparadora', benefit: 'Reparación profunda con coco y naranja dulce' };
+  }
+
+  // Producto de peinado
+  let styling: RoutineItem;
+  if (isCurly) {
+    styling = { name: 'SOPHIA', tagline: 'Mousse de Definición', benefit: 'Define rizos con fijación flexible y sin crujido' };
+  } else if (isFine) {
+    styling = { name: 'SOPHIA', tagline: 'Mousse de Definición', benefit: 'Volumen natural sin aplastarse durante el día' };
+  } else if (isTreated || isDry) {
+    styling = { name: 'GODIVA', tagline: 'Sérum Nutritivo', benefit: 'Sella las puntas y nutre en profundidad' };
+  } else if (isWavy) {
+    styling = { name: 'UMA Crema', tagline: 'Crema de Peinar', benefit: 'Define el movimiento natural sin rigidez' };
+  } else {
+    styling = { name: 'UMA Protector', tagline: 'Protector Antifrizz', benefit: 'Protege y controla el frizz todo el día' };
+  }
+
+  return { shot, shampoo, treatment: proc, styling };
 }
 
 export function getPrimaryProduct(answers: Answer[]): string {
-  const { needs } = calculateHairType(answers);
-  return getRecommendedProducts(needs)[0] ?? 'Aquaella';
+  return getHairRoutine(answers).shot.name;
 }
