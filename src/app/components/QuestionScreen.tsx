@@ -242,10 +242,10 @@ export default function QuestionScreen({
                   >
                     {/* Illustration box */}
                     <div
-                      className="w-16 h-16 flex-shrink-0 rounded-xl flex items-center justify-center"
+                      className="w-20 h-20 flex-shrink-0 rounded-xl flex items-center justify-center"
                       style={{ background: iconBg }}
                     >
-                      <div className="w-12 h-12">
+                      <div className="w-14 h-14">
                         <OptionIllustration questionNumber={questionNumber} option={option} color={iconColor} />
                       </div>
                     </div>
@@ -256,7 +256,7 @@ export default function QuestionScreen({
                       style={{
                         fontFamily: "'Poppins', sans-serif",
                         fontWeight: isSelected ? 500 : 400,
-                        fontSize: '1.2rem',
+                        fontSize: '1.45rem',
                         color: glass
                           ? (isSelected ? 'white' : 'rgba(255,255,255,0.8)')
                           : (isSelected ? B.primaryDark : '#6b7280'),
