@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { motion } from 'motion/react';
 import SplashScreen from './components/SplashScreen';
 import LogoTransition from './components/LogoTransition';
@@ -35,6 +35,7 @@ export default function App() {
   const [primaryProduct, setPrimaryProduct] = useState('');
   const [hairRoutine, setHairRoutine] = useState<HairRoutine | null>(null);
   const [providedEmail, setProvidedEmail] = useState(false);
+  const submittingRef = useRef(false);
   const [showDrops, setShowDrops] = useState(false);
   const [dropsVisible, setDropsVisible] = useState(true);
 
@@ -135,6 +136,7 @@ export default function App() {
   };
 
   const handleEmailSubmit = async (email: string) => {
+    if (submittingRef.current) return;
     const result = calculateHairType(answers);
     const data = {
       email,

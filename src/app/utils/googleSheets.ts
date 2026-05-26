@@ -64,11 +64,11 @@ export async function saveToGoogleSheets(data: QuizData): Promise<boolean> {
   }
 
   try {
-    const response = await fetch(googleSheetsUrl, {
+    await fetch(googleSheetsUrl, {
       method: 'POST',
-      mode: 'no-cors', // Google Apps Script requires no-cors
+      mode: 'no-cors',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'text/plain',
       },
       body: JSON.stringify(data)
     });
