@@ -17,7 +17,7 @@ import q3Bg from '../imports/naranjas_vertical.png';
 import q4Bg from '../imports/pantalon_a_rayas_vertical.png';
 import q5Bg from '../imports/productos_ducha_vertical.png';
 import q6Bg from '../imports/serum_vertical.png';
-import summaryBg from '../imports/bandeja_de_productos.png';
+import summaryBg from '../imports/aurora_bg.jpg';
 
 export type Answer = {
   question: string;
