@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
 import { Sparkles, ArrowRight, Droplets, Wind, Scissors } from 'lucide-react';
 import type { HairRoutine } from '../utils/hairAnalysis';
+import bgImage from '../../imports/ephyra_bg.jpg';
 
 const B = {
   primary:      '#3D2B1F',
@@ -24,19 +25,19 @@ const STEP_ICONS = [
 const STEP_LABELS = ['Limpieza', 'Nutrición', 'Peinado'];
 
 export default function ResultsScreen({ hairType, needs, routine, onContinue }: ResultsScreenProps) {
-  const routineSteps = [
-    routine.shampoo,
-    routine.treatment,
-    routine.styling,
-  ];
+  const routineSteps = [routine.shampoo, routine.treatment, routine.styling];
 
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4 }}
-      className="size-full flex flex-col bg-white overflow-y-auto"
+      className="size-full flex flex-col overflow-y-auto relative"
     >
+      {/* Background */}
+      <img src={bgImage} alt="" className="fixed inset-0 w-full h-full object-cover -z-10" />
+      <div className="fixed inset-0 bg-gradient-to-b from-black/65 via-black/45 to-black/75 -z-10" />
+
       {/* Header */}
       <div className="px-8 pt-10 pb-5">
         <motion.div
@@ -45,8 +46,8 @@ export default function ResultsScreen({ hairType, needs, routine, onContinue }: 
           transition={{ delay: 0.1 }}
           className="flex items-center gap-2 mb-3"
         >
-          <Sparkles className="w-4 h-4" style={{ color: B.primary }} />
-          <p className="text-xs tracking-[0.28em] uppercase" style={{ fontFamily: "'Poppins', sans-serif", color: B.primary }}>
+          <Sparkles className="w-4 h-4 text-white/70" />
+          <p className="text-xs tracking-[0.28em] uppercase" style={{ fontFamily: "'Poppins', sans-serif", color: 'rgba(255,255,255,0.65)' }}>
             Tu diagnóstico
           </p>
         </motion.div>
@@ -55,8 +56,8 @@ export default function ResultsScreen({ hairType, needs, routine, onContinue }: 
           initial={{ y: 10, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.18 }}
-          className="mb-4"
-          style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontSize: '2.4rem', lineHeight: 1.1, color: '#1c1917' }}
+          className="mb-4 text-white"
+          style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontSize: '2.4rem', lineHeight: 1.1 }}
         >
           {hairType}
         </motion.h1>
@@ -66,7 +67,7 @@ export default function ResultsScreen({ hairType, needs, routine, onContinue }: 
             <span
               key={i}
               className="px-3 py-1 rounded-full text-xs"
-              style={{ fontFamily: "'Poppins', sans-serif", background: B.primaryLight, border: `1px solid ${B.primaryBorder}`, color: B.primary }}
+              style={{ fontFamily: "'Poppins', sans-serif", background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.35)', color: 'white', backdropFilter: 'blur(8px)' }}
             >
               {need}
             </span>
@@ -74,7 +75,7 @@ export default function ResultsScreen({ hairType, needs, routine, onContinue }: 
         </motion.div>
       </div>
 
-      <div className="px-8 mb-5"><div className="h-px" style={{ background: '#ede8e4' }} /></div>
+      <div className="px-8 mb-5"><div className="h-px" style={{ background: 'rgba(255,255,255,0.15)' }} /></div>
 
       {/* === SHOT FEATURED === */}
       <div className="px-6 mb-6">
@@ -83,7 +84,7 @@ export default function ResultsScreen({ hairType, needs, routine, onContinue }: 
           animate={{ opacity: 1 }}
           transition={{ delay: 0.32 }}
           className="text-xs tracking-[0.22em] uppercase mb-3"
-          style={{ fontFamily: "'Poppins', sans-serif", color: B.muted }}
+          style={{ fontFamily: "'Poppins', sans-serif", color: 'rgba(255,255,255,0.55)' }}
         >
           Tu muestra de regalo
         </motion.p>
@@ -93,36 +94,25 @@ export default function ResultsScreen({ hairType, needs, routine, onContinue }: 
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.4 }}
           className="rounded-3xl overflow-hidden"
-          style={{ background: B.primaryLight, border: `1.5px solid ${B.primaryBorder}` }}
+          style={{ background: 'rgba(255,255,255,0.13)', border: '1px solid rgba(255,255,255,0.35)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)' }}
         >
           <div className="px-6 pt-6 pb-5">
-            <p
-              className="text-xs tracking-widest uppercase mb-1"
-              style={{ fontFamily: "'Poppins', sans-serif", color: B.muted }}
-            >
+            <p className="text-xs tracking-widest uppercase mb-1" style={{ fontFamily: "'Poppins', sans-serif", color: 'rgba(255,255,255,0.5)' }}>
               Perla Pli · Shot
             </p>
-            <h2
-              style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontSize: '2.8rem', lineHeight: 1.05, color: B.primary }}
-            >
+            <h2 className="text-white" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontSize: '2.8rem', lineHeight: 1.05 }}>
               {routine.shot.name}
             </h2>
-            <p
-              className="mt-1 text-sm"
-              style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, color: B.primary }}
-            >
+            <p className="mt-1 text-sm text-white" style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500 }}>
               {routine.shot.tagline}
             </p>
-            <p
-              className="mt-1.5 text-sm leading-relaxed"
-              style={{ fontFamily: "'Poppins', sans-serif", color: B.muted }}
-            >
+            <p className="mt-1.5 text-sm leading-relaxed" style={{ fontFamily: "'Poppins', sans-serif", color: 'rgba(255,255,255,0.7)' }}>
               {routine.shot.benefit}
             </p>
           </div>
-          <div className="h-px mx-6" style={{ background: B.primaryBorder + '55' }} />
+          <div className="h-px mx-6" style={{ background: 'rgba(255,255,255,0.2)' }} />
           <div className="px-6 py-3">
-            <p className="text-xs" style={{ fontFamily: "'Poppins', sans-serif", color: B.muted }}>
+            <p className="text-xs" style={{ fontFamily: "'Poppins', sans-serif", color: 'rgba(255,255,255,0.45)' }}>
               Retirá tu muestra en el stand · Dispensado automáticamente
             </p>
           </div>
@@ -136,7 +126,7 @@ export default function ResultsScreen({ hairType, needs, routine, onContinue }: 
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
           className="text-xs tracking-[0.22em] uppercase mb-3"
-          style={{ fontFamily: "'Poppins', sans-serif", color: B.muted }}
+          style={{ fontFamily: "'Poppins', sans-serif", color: 'rgba(255,255,255,0.55)' }}
         >
           Tu rutina completa Perla Pli
         </motion.p>
@@ -148,34 +138,31 @@ export default function ResultsScreen({ hairType, needs, routine, onContinue }: 
               initial={{ x: -20, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.58 + index * 0.1 }}
-              className="flex items-center gap-4 rounded-2xl px-4 py-4 bg-white"
-              style={{ border: '1px solid rgba(0,0,0,0.07)' }}
+              className="flex items-center gap-4 rounded-2xl px-4 py-4"
+              style={{ background: 'rgba(255,255,255,0.11)', border: '1px solid rgba(255,255,255,0.25)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}
             >
-              {/* Step icon */}
               <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                style={{ background: B.primaryLight, color: B.primary }}
+                className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 text-white/80"
+                style={{ background: 'rgba(255,255,255,0.15)' }}
               >
                 {STEP_ICONS[index]}
               </div>
 
-              {/* Info */}
               <div className="flex-1 min-w-0">
-                <p className="text-xs mb-0.5 uppercase tracking-wider" style={{ fontFamily: "'Poppins', sans-serif", color: B.muted }}>
+                <p className="text-xs mb-0.5 uppercase tracking-wider" style={{ fontFamily: "'Poppins', sans-serif", color: 'rgba(255,255,255,0.5)' }}>
                   {STEP_LABELS[index]}
                 </p>
-                <p style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 500, fontSize: '1.3rem', color: '#1c1917' }}>
+                <p className="text-white" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 500, fontSize: '1.3rem' }}>
                   {item.name}
                 </p>
-                <p className="text-xs" style={{ fontFamily: "'Poppins', sans-serif", color: B.muted }}>
+                <p className="text-xs" style={{ fontFamily: "'Poppins', sans-serif", color: 'rgba(255,255,255,0.65)' }}>
                   {item.benefit}
                 </p>
               </div>
 
-              {/* Step number */}
               <div
-                className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 text-sm"
-                style={{ background: B.primaryLight, fontFamily: "'Cormorant Garamond', serif", fontWeight: 600, color: B.primary }}
+                className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 text-sm text-white/70"
+                style={{ background: 'rgba(255,255,255,0.15)', fontFamily: "'Cormorant Garamond', serif", fontWeight: 600 }}
               >
                 {index + 1}
               </div>
@@ -193,8 +180,8 @@ export default function ResultsScreen({ hairType, needs, routine, onContinue }: 
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           onClick={onContinue}
-          className="w-full py-4 rounded-full flex items-center justify-center gap-2 text-sm uppercase tracking-widest text-white"
-          style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, background: B.primary }}
+          className="w-full py-4 rounded-full flex items-center justify-center gap-2 text-sm uppercase tracking-widest"
+          style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, background: 'rgba(255,255,255,0.9)', color: B.primary }}
         >
           Continuar
           <ArrowRight className="w-4 h-4" />
