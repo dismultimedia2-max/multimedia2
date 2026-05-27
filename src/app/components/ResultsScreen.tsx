@@ -32,11 +32,14 @@ export default function ResultsScreen({ hairType, needs, routine, onContinue }: 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4 }}
-      className="size-full flex flex-col overflow-y-auto relative"
+      className="size-full relative overflow-hidden"
     >
       {/* Background */}
-      <img src={bgImage} alt="" className="fixed inset-0 w-full h-full object-cover -z-10" />
-      <div className="fixed inset-0 bg-gradient-to-b from-black/65 via-black/45 to-black/75 -z-10" />
+      <img src={bgImage} alt="" className="absolute inset-0 w-full h-full object-cover" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/45 to-black/75 pointer-events-none" />
+
+      {/* Scrollable content */}
+      <div className="relative size-full flex flex-col overflow-y-auto">
 
       {/* Header */}
       <div className="px-8 pt-10 pb-5">
@@ -186,6 +189,7 @@ export default function ResultsScreen({ hairType, needs, routine, onContinue }: 
           Continuar
           <ArrowRight className="w-4 h-4" />
         </motion.button>
+      </div>
       </div>
     </motion.div>
   );
