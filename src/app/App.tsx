@@ -143,7 +143,8 @@ export default function App() {
       hairType: result.type,
       needs: result.needs.join(', '),
       answers: answers.map(a => `${a.question}: ${a.answer}`).join(' | '),
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
+      submissionId: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`
     };
     await saveToGoogleSheets(data);
     await triggerDispenser(primaryProduct);

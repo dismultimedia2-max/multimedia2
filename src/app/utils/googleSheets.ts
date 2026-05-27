@@ -50,6 +50,7 @@ export interface QuizData {
   needs: string;
   answers: string;
   timestamp: string;
+  submissionId: string;
 }
 
 export async function saveToGoogleSheets(data: QuizData): Promise<boolean> {
