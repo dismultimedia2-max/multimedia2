@@ -137,6 +137,7 @@ export default function App() {
 
   const handleEmailSubmit = async (email: string) => {
     if (submittingRef.current) return;
+    submittingRef.current = true;
     const result = calculateHairType(answers);
     const data = {
       email,
