@@ -97,6 +97,17 @@ export default function App() {
     setSelectedOption(answer);
     setShowFeedback(true);
 
+    // 🧪 TEST TEMPORAL FIREBASE — borrar después
+    if (questionIndex === 0) {
+      console.log('🧪 [TEST] Escribiendo en Firebase...');
+      triggerDispenser('TEST_' + answer).then(() => {
+        console.log('✅ [TEST] Firebase OK — chequeá Realtime Database en la consola de Firebase');
+      }).catch((err) => {
+        console.error('❌ [TEST] Firebase ERROR:', err);
+      });
+    }
+    // 🧪 FIN TEST
+
     setTimeout(() => {
       const newAnswers = [...answers];
       newAnswers[questionIndex] = {

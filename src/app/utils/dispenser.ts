@@ -23,14 +23,18 @@ export async function triggerDispenser(productName: string): Promise<void> {
   if (!productName) return;
 
   try {
+    console.log('[Dispenser] Conectando a Firebase...');
     const dispenserRef = ref(db, 'dispense');
     await set(dispenserRef, {
       product:   productName,
       status:    'pending',
       timestamp: serverTimestamp(),
     });
-    console.log('[Dispenser] Comando enviado a Firebase:', productName);
+    console.log('%c[Dispenser] ✅ Escrito en Firebase:', 'color: green; font-weight: bold', {
+      product: productName,
+      status: 'pending',
+    });
   } catch (error) {
-    console.error('[Dispenser] Error escribiendo en Firebase:', error);
+    console.error('[Dispenser] ❌ Error escribiendo en Firebase:', error);
   }
 }
