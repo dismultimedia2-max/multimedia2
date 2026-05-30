@@ -1,21 +1,36 @@
-const ESP32_URL = import.meta.env.VITE_ESP32_URL as string | undefined;
+import { db } from './firebase';
+import { ref, set, serverTimestamp } from 'firebase/database';
 
-export async function triggerDispenser(product: string): Promise<boolean> {
-  if (!ESP32_URL) {
-    console.warn('[Dispenser] VITE_ESP32_URL no configurado — dispensado omitido');
-    return false;
-  }
+/**
+ * Dispenser via Firebase Realtime Database
+ *
+ * Escribe un comando en /dispense → el ESP32 lo lee y acciona el dispensador.
+ *
+ * Estructura en Firebase:
+ * {
+ *   "dispense": {
+ *     "product":   "Freya",
+ *     "status":    "pending",   // el ESP32 lo cambia a "done" al dispensar
+ *     "timestamp": 1234567890
+ *   }
+ * }
+ *
+ * El ESP32 hace polling a:
+ *   GET https://<project>.firebaseio.com/dispense.json
+ * y cuando ve status "pending", dispensa y hace PUT status → "done"
+ */
+export async function triggerDispenser(productName: string): Promise<void> {
+  if (!productName) return;
+
   try {
-    await fetch(ESP32_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ product }),
-      signal: AbortSignal.timeout(5000),
+    const dispenserRef = ref(db, 'dispense');
+    await set(dispenserRef, {
+      product:   productName,
+      status:    'pending',
+      timestamp: serverTimestamp(),
     });
-    console.log(`[Dispenser] OK — producto: ${product}`);
-    return true;
-  } catch (err) {
-    console.error('[Dispenser] Error al comunicar con ESP32:', err);
-    return false;
+    console.log('[Dispenser] Comando enviado a Firebase:', productName);
+  } catch (error) {
+    console.error('[Dispenser] Error escribiendo en Firebase:', error);
   }
 }
