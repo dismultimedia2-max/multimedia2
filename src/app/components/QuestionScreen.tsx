@@ -238,7 +238,7 @@ export default function QuestionScreen({
                     whileTap={{ scale: 0.985 }}
                     onClick={() => onAnswer(option)}
                     className="w-full flex items-center gap-4 px-5 text-left transition-all"
-                    style={{ ...cardStyle, height: '100px', borderRadius: '32px' }}
+                    style={{ ...cardStyle, height: '150px', borderRadius: '32px' }}
                   >
                     {/* Illustration box */}
                     <div
