@@ -35,10 +35,11 @@ export default function SplashScreen({ onStart }: SplashScreenProps) {
         className="absolute inset-0 flex flex-col items-center justify-center text-center px-8"
       >
         <h1
-          className="mb-5 text-white tracking-widest"
-          style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: '7rem', lineHeight: 1 }}
+          className="mb-5 text-white"
+          style={{ fontSize: '7rem', lineHeight: 1 }}
         >
-          Perla Pli
+          <span style={{ fontFamily: "'Andale Mono MT', monospace", fontWeight: 400, letterSpacing: '0.05em' }}>Perla </span>
+          <span style={{ fontFamily: "'Futura Cyrillic', sans-serif", fontWeight: 300, fontStyle: 'oblique', letterSpacing: '0.1em' }}>Pli</span>
         </h1>
         <p
           className="text-white/80 tracking-[0.28em] uppercase"

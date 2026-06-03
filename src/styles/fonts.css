@@ -6,3 +6,17 @@
   font-weight: 400;
   font-style: normal;
 }
+
+@font-face {
+  font-family: 'Andale Mono MT';
+  src: url('../imports/fonts/andale-mono-mt-std.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Futura Cyrillic';
+  src: url('../imports/fonts/futura-cyrillic-light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
