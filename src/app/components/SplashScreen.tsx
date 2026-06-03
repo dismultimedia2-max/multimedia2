@@ -38,7 +38,7 @@ export default function SplashScreen({ onStart }: SplashScreenProps) {
           className="mb-5 text-white"
           style={{ fontSize: '7rem', lineHeight: 1 }}
         >
-          <span style={{ fontFamily: "'Andale Mono MT', monospace", fontWeight: 400, letterSpacing: '0.05em' }}>P E R L A </span>
+          <span style={{ fontFamily: "'Andale Mono MT', monospace", fontWeight: 400, letterSpacing: '0.02em' }}>P E R L A </span>
           <span style={{ fontFamily: "'Futura Cyrillic', sans-serif", fontWeight: 300, fontStyle: 'oblique', letterSpacing: '0.1em' }}>PLI.</span>
         </h1>
         <p
