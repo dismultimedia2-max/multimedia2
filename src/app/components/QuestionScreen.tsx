@@ -240,14 +240,19 @@ export default function QuestionScreen({
                     className="w-full flex items-center gap-4 px-5 text-left transition-all"
                     style={{ ...cardStyle, height: '200px', borderRadius: '32px' }}
                   >
-                    {/* Illustration box */}
+                    {/* Number */}
                     <div
                       className="w-20 h-20 flex-shrink-0 rounded-xl flex items-center justify-center"
                       style={{ background: iconBg }}
                     >
-                      <div className="w-14 h-14">
-                        <OptionIllustration questionNumber={questionNumber} option={option} color={iconColor} />
-                      </div>
+                      <span style={{
+                        fontFamily: "'Poppins', sans-serif",
+                        fontWeight: 600,
+                        fontSize: '2rem',
+                        color: iconColor,
+                      }}>
+                        {index + 1}
+                      </span>
                     </div>
 
                     {/* Text */}
