@@ -213,8 +213,8 @@ export default function QuestionScreen({
 
                 const cardStyle = glass
                   ? {
-                      background: isSelected ? 'rgba(255,255,255,0.28)' : 'rgba(255,255,255,0.12)',
-                      border: `1px solid ${isSelected ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.28)'}`,
+                      background: isSelected ? 'rgba(255,255,255,0.35)' : 'rgba(255,255,255,0.22)',
+                      border: `1px solid ${isSelected ? 'rgba(255,255,255,0.8)' : 'rgba(255,255,255,0.45)'}`,
                       backdropFilter: 'blur(12px)',
                       WebkitBackdropFilter: 'blur(12px)',
                     }
