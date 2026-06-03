@@ -183,7 +183,7 @@ export default function QuestionScreen({
       </div>
 
       {/* Question */}
-      <div className="relative px-10 mb-5">
+      <div className="relative px-10 mt-8 mb-10">
         <motion.h2
           initial={{ y: 8, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
