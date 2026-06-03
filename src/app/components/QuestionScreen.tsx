@@ -190,7 +190,7 @@ export default function QuestionScreen({
           transition={{ delay: 0.1 }}
           style={{
             fontFamily: "'Cormorant Garamond', serif",
-            fontWeight: 400,
+            fontWeight: 700,
             fontSize: '2.4rem',
             lineHeight: 1.25,
             color: glass ? 'white' : '#1c1917',
