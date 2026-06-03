@@ -213,14 +213,18 @@ export default function QuestionScreen({
 
                 const cardStyle = glass
                   ? {
-                      background: isSelected ? 'rgba(255,255,255,0.28)' : 'rgba(255,255,255,0.12)',
-                      border: `1px solid ${isSelected ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.28)'}`,
+                      background: isSelected ? 'rgba(255,255,255,0.28)' : 'rgba(255,255,255,0.15)',
+                      border: `1px solid ${isSelected ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.35)'}`,
                       backdropFilter: 'blur(12px)',
                       WebkitBackdropFilter: 'blur(12px)',
+                      boxShadow: isSelected
+                        ? '0 0 0 1px rgba(255,255,255,0.4), 0 8px 32px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.3)'
+                        : '0 8px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.15)',
                     }
                   : {
                       background: isSelected ? B.primaryLight : '#faf7f5',
                       border: `1.5px solid ${isSelected ? B.primaryBorder : 'rgba(0,0,0,0.07)'}`,
+                      boxShadow: '0 4px 16px rgba(0,0,0,0.12)',
                     };
 
                 const iconBg = glass
