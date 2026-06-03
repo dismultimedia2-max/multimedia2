@@ -217,6 +217,7 @@ export default function QuestionScreen({
                       border: `1px solid ${isSelected ? 'rgba(255,255,255,0.8)' : 'rgba(255,255,255,0.45)'}`,
                       backdropFilter: 'blur(12px)',
                       WebkitBackdropFilter: 'blur(12px)',
+                      boxShadow: '0 0 20px rgba(255,255,255,0.15), inset 0 0 20px rgba(255,255,255,0.08)',
                     }
                   : {
                       background: isSelected ? B.primaryLight : '#faf7f5',
