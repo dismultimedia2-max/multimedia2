@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import SplashScreen from './components/SplashScreen';
 import LogoTransition from './components/LogoTransition';
 import QuestionScreen from './components/QuestionScreen';
@@ -42,9 +42,9 @@ export default function App() {
   const handleSplashStart = () => {
     setDropsVisible(true);
     setShowDrops(true);
-    setTimeout(() => setCurrentScreen(1), 780);
-    setTimeout(() => setDropsVisible(false), 880);
-    setTimeout(() => { setShowDrops(false); setDropsVisible(true); }, 1250);
+    setTimeout(() => setCurrentScreen(1), 550);   // swap cuando los drops ya cubren la pantalla
+    setTimeout(() => setDropsVisible(false), 700); // empezar a revelar LogoTransition
+    setTimeout(() => { setShowDrops(false); setDropsVisible(true); }, 1300); // limpieza
   };
 
   const DROPS = [
@@ -229,12 +229,14 @@ export default function App() {
 
   return (
     <div className="size-full overflow-hidden relative bg-white">
-      {screens[currentScreen]}
+      <AnimatePresence mode="sync">
+        {screens[currentScreen]}
+      </AnimatePresence>
 
       {showDrops && (
         <motion.div
           animate={{ opacity: dropsVisible ? 1 : 0 }}
-          transition={{ duration: 0.32 }}
+          transition={{ duration: 0.5, ease: 'easeInOut' }}
           style={{ position: 'fixed', inset: 0, zIndex: 100 }}
         >
           <div
@@ -243,17 +245,18 @@ export default function App() {
               inset: 0,
               background: '#0a0a0a',
               filter: 'blur(14px) contrast(22)',
+              willChange: 'filter',
             }}
           >
             {DROPS.map(drop => (
               <motion.div
                 key={drop.id}
-                initial={{ scale: 0, y: -30 }}
+                initial={{ scale: 0, y: -20 }}
                 animate={{ scale: 1, y: 0 }}
                 transition={{
-                  delay: drop.delay,
-                  duration: 0.58,
-                  ease: [0.22, 1.2, 0.36, 1],
+                  delay: drop.delay * 0.5,
+                  duration: 0.42,
+                  ease: [0.22, 1.1, 0.36, 1],
                 }}
                 style={{
                   position: 'absolute',
