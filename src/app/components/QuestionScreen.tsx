@@ -204,7 +204,7 @@ export default function QuestionScreen({
       <div className="relative flex-1 px-10 pb-8 flex flex-col">
         <AnimatePresence mode="wait">
           {!showFeedback ? (
-            <div key="options" className="w-full flex flex-col overflow-y-auto" style={{ gap: '15px' }}>
+            <div key="options" className="w-full flex flex-col overflow-y-auto" style={{ gap: '25px' }}>
               {options.map((option, index) => {
                 const isSelected = currentAnswer === option;
                 const iconColor = glass
