@@ -218,8 +218,8 @@ export default function QuestionScreen({
                       backdropFilter: 'blur(12px)',
                       WebkitBackdropFilter: 'blur(12px)',
                       boxShadow: isSelected
-                        ? '0 0 0 1px rgba(255,255,255,0.4), 0 8px 32px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.3)'
-                        : '0 8px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.15)',
+                        ? '0 0 24px rgba(255,255,255,0.35), 0 0 8px rgba(255,255,255,0.2), inset 0 1px 0 rgba(255,255,255,0.4)'
+                        : '0 0 18px rgba(255,255,255,0.18), inset 0 1px 0 rgba(255,255,255,0.2)',
                     }
                   : {
                       background: isSelected ? B.primaryLight : '#faf7f5',
