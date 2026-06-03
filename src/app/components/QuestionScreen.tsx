@@ -204,7 +204,7 @@ export default function QuestionScreen({
       <div className="relative flex-1 px-10 pb-8 flex flex-col">
         <AnimatePresence mode="wait">
           {!showFeedback ? (
-            <div key="options" className="w-full flex-1 flex flex-col" style={{ gap: '10px' }}>
+            <div key="options" className="w-full flex flex-col overflow-y-auto" style={{ gap: '200px' }}>
               {options.map((option, index) => {
                 const isSelected = currentAnswer === option;
                 const iconColor = glass
@@ -237,8 +237,8 @@ export default function QuestionScreen({
                     whileHover={{ scale: 1.015 }}
                     whileTap={{ scale: 0.985 }}
                     onClick={() => onAnswer(option)}
-                    className="flex-1 flex items-center gap-4 px-5 rounded-2xl text-left transition-all"
-                    style={cardStyle}
+                    className="w-full flex items-center gap-4 px-5 text-left transition-all"
+                    style={{ ...cardStyle, height: '300px', borderRadius: '32px' }}
                   >
                     {/* Illustration box */}
                     <div
