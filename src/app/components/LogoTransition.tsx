@@ -59,16 +59,10 @@ export default function LogoTransition({ onComplete }: LogoTransitionProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.55, ease: 'easeOut' }}
           className="mb-4"
-          style={{
-            fontFamily: "'Cormorant Garamond', serif",
-            fontWeight: 300,
-            fontSize: '8rem',
-            lineHeight: 1,
-            letterSpacing: '0.06em',
-            color: 'white',
-          }}
+          style={{ fontSize: '5rem', lineHeight: 1, color: 'white', whiteSpace: 'nowrap' }}
         >
-          Perla Pli
+          <span style={{ fontFamily: "'Andale Mono MT', monospace", fontWeight: 400, letterSpacing: '0.4em' }}>PERLA</span>
+          <span style={{ fontFamily: "'Futura Cyrillic', sans-serif", fontWeight: 300, fontStyle: 'oblique', letterSpacing: '0.1em' }}>PLI.</span>
         </motion.h1>
 
         <motion.div
