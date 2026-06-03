@@ -189,8 +189,8 @@ export default function QuestionScreen({
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.1 }}
           style={{
-            fontFamily: "'Cormorant Garamond', serif",
-            fontWeight: 700,
+            fontFamily: "'Coolvetica', sans-serif",
+            fontWeight: 400,
             fontSize: '2.4rem',
             lineHeight: 1.25,
             color: glass ? 'white' : '#1c1917',
