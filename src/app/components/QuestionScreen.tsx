@@ -158,7 +158,7 @@ export default function QuestionScreen({
 
         <p
           className="text-sm tracking-[0.22em] uppercase"
-          style={{ fontFamily: "'Poppins', sans-serif", color: glass ? 'rgba(255,255,255,0.7)' : B.muted }}
+          style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, color: glass ? 'rgba(255,255,255,0.7)' : B.muted }}
         >
           {questionNumber} / {totalQuestions}
         </p>
