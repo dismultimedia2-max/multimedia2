@@ -237,15 +237,15 @@ export default function QuestionScreen({
                     whileHover={{ scale: 1.015 }}
                     whileTap={{ scale: 0.985 }}
                     onClick={() => onAnswer(option)}
-                    className="flex items-center gap-4 px-5 py-3 rounded-2xl text-left transition-all"
+                    className="flex-1 flex items-center gap-4 px-5 rounded-2xl text-left transition-all"
                     style={cardStyle}
                   >
                     {/* Illustration box */}
                     <div
-                      className="w-14 h-14 flex-shrink-0 rounded-xl flex items-center justify-center"
+                      className="w-20 h-20 flex-shrink-0 rounded-xl flex items-center justify-center"
                       style={{ background: iconBg }}
                     >
-                      <div className="w-10 h-10">
+                      <div className="w-14 h-14">
                         <OptionIllustration questionNumber={questionNumber} option={option} color={iconColor} />
                       </div>
                     </div>
