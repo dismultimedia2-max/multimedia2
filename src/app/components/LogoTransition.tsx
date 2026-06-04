@@ -78,7 +78,7 @@ export default function LogoTransition({ onComplete }: LogoTransitionProps) {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.7, delay: 1.3 }}
           className="mt-6 tracking-[0.28em] uppercase"
-          style={{ fontFamily: "'Poppins', sans-serif", fontSize: '1rem', color: 'rgba(255,255,255,0.5)' }}
+          style={{ fontFamily: "'Poppins', sans-serif", fontSize: '1.3rem', fontWeight: 500, color: 'rgba(255,255,255,0.5)' }}
         >
           Tu rutina comienza...
         </motion.p>
