@@ -267,7 +267,12 @@ export default function QuestionScreen({
                           : (isSelected ? B.primaryDark : '#6b7280'),
                       }}
                     >
-                      {option}
+                      {option.includes('(')
+                        ? <>
+                            {option.split('(')[0]}
+                            <span style={{ fontWeight: 400 }}>({option.split('(')[1]}</span>
+                          </>
+                        : option}
                     </p>
 
                     {/* Check */}
