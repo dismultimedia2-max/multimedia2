@@ -311,15 +311,20 @@ export default function QuestionScreen({
                 <Check className="w-7 h-7" style={{ color: glass ? B.primary : 'white' }} />
               </motion.div>
               <p
-                className="text-center px-6"
+                className="text-center px-6 leading-snug"
                 style={{
-                  fontFamily: "'Cormorant Garamond', serif",
-                  fontWeight: 400,
+                  fontFamily: "'Poppins', sans-serif",
+                  fontWeight: 600,
                   fontSize: '2rem',
                   color: glass ? 'white' : '#1c1917',
                 }}
               >
-                {selectedOption}
+                {selectedOption?.includes('(')
+                  ? <>
+                      {selectedOption.split('(')[0]}
+                      <span style={{ fontWeight: 400 }}>({selectedOption.split('(')[1]}</span>
+                    </>
+                  : selectedOption}
               </p>
             </motion.div>
           )}
