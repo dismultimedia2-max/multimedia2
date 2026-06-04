@@ -114,7 +114,7 @@ export default function SummaryScreen({ answers, questions, onEdit, onFinish, bg
                         </div>
                         <p
                           className="leading-snug"
-                          style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '1rem', color: glass ? 'rgba(255,255,255,0.9)' : B.primary }}
+                          style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '1.4rem', color: glass ? 'rgba(255,255,255,0.9)' : B.primary }}
                         >
                           {answer.answer}
                         </p>
