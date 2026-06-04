@@ -247,8 +247,8 @@ export default function QuestionScreen({
                     >
                       <span style={{
                         fontFamily: "'Poppins', sans-serif",
-                        fontWeight: 600,
-                        fontSize: '2rem',
+                        fontWeight: isSelected ? 500 : 400,
+                        fontSize: '1.45rem',
                         color: iconColor,
                       }}>
                         {index + 1}
@@ -260,8 +260,8 @@ export default function QuestionScreen({
                       className="flex-1 leading-snug"
                       style={{
                         fontFamily: "'Poppins', sans-serif",
-                        fontWeight: isSelected ? 500 : 400,
-                        fontSize: '1.45rem',
+                        fontWeight: 600,
+                        fontSize: '2rem',
                         color: glass
                           ? (isSelected ? 'white' : 'rgba(255,255,255,0.8)')
                           : (isSelected ? B.primaryDark : '#6b7280'),
