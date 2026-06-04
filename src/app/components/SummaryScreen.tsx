@@ -43,17 +43,18 @@ export default function SummaryScreen({ answers, questions, onEdit, onFinish, bg
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.1 }}
-          className="text-xs tracking-[0.28em] uppercase mb-2"
-          style={{ fontFamily: "'Poppins', sans-serif", color: glass ? 'rgba(255,255,255,0.65)' : B.primary }}
+          className="tracking-[0.28em] uppercase mb-2"
+          style={{ color: glass ? 'rgba(255,255,255,0.65)' : B.primary }}
         >
-          Perla Pli
+          <span style={{ fontFamily: "'Andale Mono MT', monospace", fontWeight: 400, letterSpacing: '0.4em' }}>PERLA</span>
+          <span style={{ fontFamily: "'Futura Cyrillic', sans-serif", fontWeight: 300, fontStyle: 'oblique', letterSpacing: '0.1em' }}>PLI.</span>
         </motion.p>
         <motion.h1
           initial={{ y: 10, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.18 }}
           className="mb-1"
-          style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontSize: '2.4rem', lineHeight: 1.1, color: glass ? 'white' : '#1c1917' }}
+          style={{ fontFamily: "'Coolvetica', sans-serif", fontWeight: 400, fontSize: '2.4rem', lineHeight: 1.1, color: glass ? 'white' : '#1c1917' }}
         >
           Revisá tus respuestas
         </motion.h1>
@@ -99,7 +100,7 @@ export default function SummaryScreen({ answers, questions, onEdit, onFinish, bg
                     </p>
                     <p
                       className="mb-2.5 leading-snug"
-                      style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontSize: '1.5rem', color: glass ? 'white' : '#1c1917' }}
+                      style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: '1.5rem', color: glass ? 'white' : '#1c1917' }}
                     >
                       {q.question}
                     </p>
@@ -113,7 +114,7 @@ export default function SummaryScreen({ answers, questions, onEdit, onFinish, bg
                         </div>
                         <p
                           className="leading-snug"
-                          style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: '1rem', color: glass ? 'rgba(255,255,255,0.9)' : B.primary }}
+                          style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '1rem', color: glass ? 'rgba(255,255,255,0.9)' : B.primary }}
                         >
                           {answer.answer}
                         </p>
