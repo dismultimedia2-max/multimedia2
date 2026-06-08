@@ -43,6 +43,7 @@ export default function App() {
   const [primaryProduct, setPrimaryProduct] = useState('');
   const [hairRoutine, setHairRoutine] = useState<HairRoutine | null>(null);
   const [providedEmail, setProvidedEmail] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const submittingRef = useRef(false);
   const [showDrops, setShowDrops] = useState(false);
   const [dropsVisible, setDropsVisible] = useState(true);
@@ -127,7 +128,10 @@ export default function App() {
       setShowFeedback(false);
       setSelectedOption(null);
 
-      if (questionIndex < questions.length - 1) {
+      if (isEditing) {
+        setIsEditing(false);
+        setCurrentScreen(8); // volver al summary
+      } else if (questionIndex < questions.length - 1) {
         setCurrentScreen(currentScreen + 1);
       } else {
         setCurrentScreen(8); // summary
@@ -142,6 +146,7 @@ export default function App() {
   };
 
   const handleEditAnswer = (questionIndex: number) => {
+    setIsEditing(true);
     setCurrentScreen(2 + questionIndex);
   };
 
