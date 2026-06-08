@@ -105,7 +105,7 @@ export default function ResultsScreen({ hairType, needs, routine, onContinue }: 
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.4 }}
           className="rounded-3xl overflow-hidden"
-          style={{ background: SHOT_COLORS[routine.shot.name] ?? 'rgba(255,255,255,0.13)', border: '1px solid rgba(255,255,255,0.25)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)' }}
+          style={{ background: (() => { const c = SHOT_COLORS[routine.shot.name]; if (!c) return 'rgba(255,255,255,0.13)'; const r = parseInt(c.slice(1,3),16); const g = parseInt(c.slice(3,5),16); const b = parseInt(c.slice(5,7),16); return `rgba(${r},${g},${b},0.35)`; })(), border: '1px solid rgba(255,255,255,0.35)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)' }}
         >
           <div className="px-6 pt-6 pb-5">
             <h2 className="text-white" style={{ fontFamily: "'Coolvetica', sans-serif", fontWeight: 400, fontSize: '2.8rem', lineHeight: 1.05 }}>
