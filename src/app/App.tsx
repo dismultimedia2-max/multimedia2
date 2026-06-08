@@ -136,7 +136,7 @@ export default function App() {
       } else {
         setCurrentScreen(8); // summary
       }
-    }, 2800);
+    }, 2000);
   };
 
   const handleBack = () => {
