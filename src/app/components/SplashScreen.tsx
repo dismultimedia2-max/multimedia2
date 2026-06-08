@@ -11,7 +11,7 @@ export default function SplashScreen({ onStart }: SplashScreenProps) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, transition: { duration: 0.15 } }}
-      transition={{ duration: 0.8 }}
+      transition={{ duration: 0.6, ease: [0.22, 0.03, 0.26, 1] }}
       className="relative size-full overflow-hidden"
     >
       {/* Full-screen background video */}

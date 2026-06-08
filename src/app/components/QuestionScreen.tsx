@@ -124,10 +124,10 @@ export default function QuestionScreen({
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: 50 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -30, transition: { duration: 0.15 } }}
-      transition={{ duration: 0.4, ease: 'easeOut' }}
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, transition: { duration: 0.15 } }}
+      transition={{ duration: 0.55, ease: [0.22, 0.03, 0.26, 1] }}
       className="size-full flex flex-col relative overflow-hidden"
       style={{ background: glass ? 'transparent' : 'white' }}
     >
