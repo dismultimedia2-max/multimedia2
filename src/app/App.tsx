@@ -45,30 +45,13 @@ export default function App() {
   const [providedEmail, setProvidedEmail] = useState(false);
   const isEditingRef = useRef(false);
   const submittingRef = useRef(false);
-  const [showDrops, setShowDrops] = useState(false);
-  const [dropsVisible, setDropsVisible] = useState(true);
+  const [showRipple, setShowRipple] = useState(false);
 
   const handleSplashStart = () => {
-    setDropsVisible(true);
-    setShowDrops(true);
-    setTimeout(() => setCurrentScreen(1), 550);   // swap cuando los drops ya cubren la pantalla
-    setTimeout(() => setDropsVisible(false), 700); // empezar a revelar LogoTransition
-    setTimeout(() => { setShowDrops(false); setDropsVisible(true); }, 1300); // limpieza
+    setShowRipple(true);
+    setTimeout(() => setCurrentScreen(1), 420); // swap cuando el círculo cubre la pantalla
+    setTimeout(() => setShowRipple(false), 900); // limpieza después del fade out
   };
-
-  const DROPS = [
-    { id: 0,  x: 18,  y: 6,  delay: 0 },
-    { id: 1,  x: 74,  y: 3,  delay: 0.07 },
-    { id: 2,  x: 48,  y: 20, delay: 0.14 },
-    { id: 3,  x: 8,   y: 40, delay: 0.04 },
-    { id: 4,  x: 85,  y: 35, delay: 0.11 },
-    { id: 5,  x: 55,  y: 50, delay: 0.18 },
-    { id: 6,  x: 25,  y: 60, delay: 0.08 },
-    { id: 7,  x: 70,  y: 68, delay: 0.16 },
-    { id: 8,  x: 10,  y: 80, delay: 0.05 },
-    { id: 9,  x: 88,  y: 78, delay: 0.21 },
-    { id: 10, x: 42,  y: 88, delay: 0.13 },
-  ];
 
   const questions = [
     {
@@ -246,46 +229,20 @@ export default function App() {
         {screens[currentScreen]}
       </AnimatePresence>
 
-      {showDrops && (
+      {showRipple && (
         <motion.div
-          animate={{ opacity: dropsVisible ? 1 : 0 }}
-          transition={{ duration: 0.5, ease: 'easeInOut' }}
-          style={{ position: 'fixed', inset: 0, zIndex: 100 }}
-        >
-          <div
-            style={{
-              position: 'absolute',
-              inset: 0,
-              background: '#0a0a0a',
-              filter: 'blur(14px) contrast(22)',
-              willChange: 'filter',
-            }}
-          >
-            {DROPS.map(drop => (
-              <motion.div
-                key={drop.id}
-                initial={{ scale: 0, y: -20 }}
-                animate={{ scale: 1, y: 0 }}
-                transition={{
-                  delay: drop.delay * 0.5,
-                  duration: 0.42,
-                  ease: [0.22, 1.1, 0.36, 1],
-                }}
-                style={{
-                  position: 'absolute',
-                  left: `${drop.x}%`,
-                  top: `${drop.y}%`,
-                  width: 1800,
-                  height: 1800,
-                  marginLeft: -900,
-                  marginTop: -900,
-                  borderRadius: '50%',
-                  background: '#ffffff',
-                }}
-              />
-            ))}
-          </div>
-        </motion.div>
+          initial={{ clipPath: 'circle(0% at 50% 50%)', opacity: 1 }}
+          animate={{ clipPath: 'circle(150% at 50% 50%)', opacity: [1, 1, 0] }}
+          transition={{ duration: 0.85, times: [0, 0.55, 1], ease: [0.22, 0.6, 0.36, 1] }}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 100,
+            background: 'rgba(255,255,255,0.18)',
+            backdropFilter: 'blur(6px)',
+            WebkitBackdropFilter: 'blur(6px)',
+          }}
+        />
       )}
     </div>
   );
