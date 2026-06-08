@@ -45,12 +45,8 @@ export default function App() {
   const [providedEmail, setProvidedEmail] = useState(false);
   const isEditingRef = useRef(false);
   const submittingRef = useRef(false);
-  const [showRipple, setShowRipple] = useState(false);
-
   const handleSplashStart = () => {
-    setShowRipple(true);
-    setTimeout(() => setCurrentScreen(1), 420); // swap cuando el círculo cubre la pantalla
-    setTimeout(() => setShowRipple(false), 900); // limpieza después del fade out
+    setCurrentScreen(1);
   };
 
   const questions = [
@@ -229,21 +225,6 @@ export default function App() {
         {screens[currentScreen]}
       </AnimatePresence>
 
-      {showRipple && (
-        <motion.div
-          initial={{ clipPath: 'circle(0% at 50% 50%)', opacity: 1 }}
-          animate={{ clipPath: 'circle(150% at 50% 50%)', opacity: [1, 1, 0] }}
-          transition={{ duration: 0.85, times: [0, 0.55, 1], ease: [0.22, 0.6, 0.36, 1] }}
-          style={{
-            position: 'fixed',
-            inset: 0,
-            zIndex: 100,
-            background: 'rgba(255,255,255,0.18)',
-            backdropFilter: 'blur(6px)',
-            WebkitBackdropFilter: 'blur(6px)',
-          }}
-        />
-      )}
     </div>
   );
 }
