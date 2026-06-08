@@ -1,7 +1,7 @@
 import { motion } from 'motion/react';
 import { Mail, ArrowRight } from 'lucide-react';
 import { useState } from 'react';
-import bgImage from '../../imports/productos_ducha_vertical-1.png';
+import bgImage from '../../imports/productos_ducha_vertical-1.jpg';
 
 interface EmailCaptureScreenProps {
   onSubmit: (email: string) => void;

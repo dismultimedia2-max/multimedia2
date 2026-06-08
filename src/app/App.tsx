@@ -11,12 +11,12 @@ import { saveToGoogleSheets } from './utils/googleSheets';
 import { triggerDispenser } from './utils/dispenser';
 import { calculateHairType, getPrimaryProduct, getHairRoutine } from './utils/hairAnalysis';
 import type { HairRoutine } from './utils/hairAnalysis';
-import q1Bg from '../imports/mascarillas.png';
-import q2Bg from '../imports/producto_con_flores.png';
-import q3Bg from '../imports/naranjas_vertical.png';
-import q4Bg from '../imports/pantalon_a_rayas_vertical.png';
-import q5Bg from '../imports/productos_ducha_vertical.png';
-import q6Bg from '../imports/serum_vertical.png';
+import q1Bg from '../imports/mascarillas.jpg';
+import q2Bg from '../imports/producto_con_flores.jpg';
+import q3Bg from '../imports/naranjas_vertical.jpg';
+import q4Bg from '../imports/pantalon_a_rayas_vertical.jpg';
+import q5Bg from '../imports/productos_ducha_vertical.jpg';
+import q6Bg from '../imports/serum_vertical.jpg';
 import summaryBg from '../imports/aurora_bg.jpg';
 
 export type Answer = {

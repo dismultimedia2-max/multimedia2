@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
 import { useEffect } from 'react';
-import logoBg from '../../imports/ChatGPT_Image_May_23__2026__05_13_09_PM.png';
+import logoBg from '../../imports/ChatGPT_Image_May_23__2026__05_13_09_PM.jpg';
 
 interface LogoTransitionProps {
   onComplete: () => void;
