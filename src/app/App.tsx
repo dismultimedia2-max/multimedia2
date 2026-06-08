@@ -237,7 +237,7 @@ export default function App() {
 
   return (
     <div className="size-full overflow-hidden relative bg-black">
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="sync">
         {screens[currentScreen]}
       </AnimatePresence>
 

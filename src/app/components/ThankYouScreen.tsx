@@ -40,7 +40,7 @@ export default function ThankYouScreen({ providedEmail, productName, onRestart }
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+          exit={{ opacity: 0, transition: { duration: 0.15 } }}
           className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-white"
         >
           <motion.div
