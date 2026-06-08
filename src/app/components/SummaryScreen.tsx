@@ -79,12 +79,14 @@ export default function SummaryScreen({ answers, questions, onEdit, onFinish, bg
           {questions.map((q, index) => {
             const answer = answers[index];
             return (
-              <motion.div
+              <motion.button
                 key={index}
                 initial={{ x: -24, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
+                whileTap={{ scale: 0.98 }}
                 transition={{ delay: 0.22 + index * 0.05 }}
-                className="rounded-2xl p-5"
+                onClick={() => onEdit(index)}
+                className="w-full text-left rounded-2xl p-5"
                 style={glass
                   ? { background: 'rgba(255,255,255,0.14)', border: '1px solid rgba(255,255,255,0.28)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }
                   : { background: 'white', border: '1px solid rgba(0,0,0,0.07)' }
@@ -126,10 +128,7 @@ export default function SummaryScreen({ answers, questions, onEdit, onFinish, bg
                     )}
                   </div>
 
-                  <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    onClick={() => onEdit(index)}
+                  <div
                     className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0"
                     style={glass
                       ? { background: 'rgba(255,255,255,0.18)', border: '1px solid rgba(255,255,255,0.35)' }
@@ -137,9 +136,9 @@ export default function SummaryScreen({ answers, questions, onEdit, onFinish, bg
                     }
                   >
                     <Edit2 className="w-4 h-4" style={{ color: glass ? 'white' : B.primary }} />
-                  </motion.button>
+                  </div>
                 </div>
-              </motion.div>
+              </motion.button>
             );
           })}
         </div>
