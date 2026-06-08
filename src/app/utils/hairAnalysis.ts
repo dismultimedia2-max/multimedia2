@@ -84,18 +84,20 @@ export function getHairRoutine(answers: Answer[]): HairRoutine {
   const isTreated   = treatment.includes('Decoloración') || treatment.includes('Parcial');
   const isFine      = thickness.includes('Fino');
 
-  // ONE shot
+  // ONE shot — cada uno resuelve una necesidad específica
   let shot: RoutineItem;
   if (isTreated) {
-    shot = { name: 'Fortana', tagline: 'Shot de Fuerza y Resistencia', benefit: 'Reconstruye fibras dañadas por decoloración' };
-  } else if (isFine) {
-    shot = { name: 'Freya', tagline: 'Shot de Crecimiento y Volumen', benefit: 'Más densidad y volumen desde la raíz' };
-  } else if (isCurly || isWavy || isOily) {
-    shot = { name: 'Selene', tagline: 'Shot de Control de Frizz', benefit: 'Rizos definidos sin frizz todo el día' };
+    // Tratamiento químico → reparación es la prioridad
+    shot = { name: 'Fortana', tagline: 'Shot de Fuerza y Resistencia', benefit: 'Reconstruye las fibras dañadas y devuelve resistencia al cabello tratado' };
+  } else if (isCurly || isWavy) {
+    // Rizado u ondulado → control de frizz y definición
+    shot = { name: 'Selene', tagline: 'Shot de Control y Definición', benefit: 'Define la forma natural del cabello y elimina el frizz todo el día' };
   } else if (isDry) {
-    shot = { name: 'Aquaella', tagline: 'Shot de Nutrición e Hidratación', benefit: 'Hidratación profunda y duradera' };
+    // Seco → hidratación profunda
+    shot = { name: 'Aquaella', tagline: 'Shot de Nutrición e Hidratación', benefit: 'Restaura la hidratación perdida y sella la cutícula para un pelo suave y nutrido' };
   } else {
-    shot = { name: 'Lumina', tagline: 'Shot de Brillo', benefit: 'Luminosidad y suavidad extrema' };
+    // Normal, graso, liso, fino → brillo y salud general
+    shot = { name: 'Lumina', tagline: 'Shot de Brillo y Vitalidad', benefit: 'Aporta luminosidad intensa y suavidad desde la primera aplicación' };
   }
 
   // Shampoo EROS

@@ -15,7 +15,6 @@ const SHOT_COLORS: Record<string, string> = {
   Lumina:   '#A99833',
   Aquaella: '#132E70',
   Fortana:  '#AA2713',
-  Freya:    '#5A6B5A', // neutro mientras no hay color definido
 };
 
 interface ResultsScreenProps {
