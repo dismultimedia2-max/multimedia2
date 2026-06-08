@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import SplashScreen from './components/SplashScreen';
 import LogoTransition from './components/LogoTransition';
@@ -26,6 +26,14 @@ export type Answer = {
 };
 
 export default function App() {
+  // Preload all background images on mount so they're cached before each screen appears
+  useEffect(() => {
+    [q1Bg, q2Bg, q3Bg, q4Bg, q5Bg, q6Bg, summaryBg].forEach(src => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, []);
+
   const [currentScreen, setCurrentScreen] = useState(0);
   const [answers, setAnswers] = useState<Answer[]>([]);
   const [showFeedback, setShowFeedback] = useState(false);
