@@ -100,11 +100,6 @@ export default function ResultsScreen({ hairType, needs, routine, onContinue }: 
           style={{ background: 'rgba(255,255,255,0.13)', border: '1px solid rgba(255,255,255,0.35)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)' }}
         >
           <div className="px-6 pt-6 pb-5">
-            <p className="tracking-widest uppercase mb-1" style={{ color: 'rgba(255,255,255,0.5)' }}>
-              <span style={{ fontFamily: "'Andale Mono MT', monospace", fontWeight: 400, letterSpacing: '0.4em' }}>PERLA</span>
-              <span style={{ fontFamily: "'Futura Cyrillic', sans-serif", fontWeight: 300, fontStyle: 'oblique', letterSpacing: '0.1em' }}>PLI.</span>
-              <span style={{ fontFamily: "'Poppins', sans-serif", fontSize: '1rem' }}> · Shot</span>
-            </p>
             <h2 className="text-white" style={{ fontFamily: "'Coolvetica', sans-serif", fontWeight: 400, fontSize: '2.8rem', lineHeight: 1.05 }}>
               {routine.shot.name}
             </h2>
