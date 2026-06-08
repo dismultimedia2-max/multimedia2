@@ -92,11 +92,12 @@ export function getHairRoutine(answers: Answer[]): HairRoutine {
   } else if (isCurly || isWavy) {
     // Rizado u ondulado → control de frizz y definición
     shot = { name: 'Selene', tagline: 'Shot de Control y Definición', benefit: 'Define la forma natural del cabello y elimina el frizz todo el día' };
-  } else if (isDry) {
-    // Seco → hidratación profunda
+  } else if (isDry || isOily) {
+    // Seco u graso → Aquaella (hidratación/nutrición)
+    // El pelo graso puede ser deshidratado en las puntas; Lumina agravaría la grasa
     shot = { name: 'Aquaella', tagline: 'Shot de Nutrición e Hidratación', benefit: 'Restaura la hidratación perdida y sella la cutícula para un pelo suave y nutrido' };
   } else {
-    // Normal, graso, liso, fino → brillo y salud general
+    // Normal, liso, sin condición especial → brillo y salud general
     shot = { name: 'Lumina', tagline: 'Shot de Brillo y Vitalidad', benefit: 'Aporta luminosidad intensa y suavidad desde la primera aplicación' };
   }
 
