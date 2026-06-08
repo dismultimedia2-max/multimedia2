@@ -60,7 +60,7 @@ export default function ResultsScreen({ hairType, needs, routine, onContinue }: 
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.18 }}
           className="mb-4 text-white"
-          style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontSize: '2.4rem', lineHeight: 1.1 }}
+          style={{ fontFamily: "'Coolvetica', sans-serif", fontWeight: 400, fontSize: '2.4rem', lineHeight: 1.1 }}
         >
           {hairType}
         </motion.h1>
@@ -100,16 +100,18 @@ export default function ResultsScreen({ hairType, needs, routine, onContinue }: 
           style={{ background: 'rgba(255,255,255,0.13)', border: '1px solid rgba(255,255,255,0.35)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)' }}
         >
           <div className="px-6 pt-6 pb-5">
-            <p className="text-xs tracking-widest uppercase mb-1" style={{ fontFamily: "'Poppins', sans-serif", color: 'rgba(255,255,255,0.5)' }}>
-              Perla Pli · Shot
+            <p className="tracking-widest uppercase mb-1" style={{ color: 'rgba(255,255,255,0.5)' }}>
+              <span style={{ fontFamily: "'Andale Mono MT', monospace", fontWeight: 400, letterSpacing: '0.4em' }}>PERLA</span>
+              <span style={{ fontFamily: "'Futura Cyrillic', sans-serif", fontWeight: 300, fontStyle: 'oblique', letterSpacing: '0.1em' }}>PLI.</span>
+              <span style={{ fontFamily: "'Poppins', sans-serif", fontSize: '1rem' }}> · Shot</span>
             </p>
-            <h2 className="text-white" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontSize: '2.8rem', lineHeight: 1.05 }}>
+            <h2 className="text-white" style={{ fontFamily: "'Coolvetica', sans-serif", fontWeight: 400, fontSize: '2.8rem', lineHeight: 1.05 }}>
               {routine.shot.name}
             </h2>
-            <p className="mt-1 text-sm text-white" style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500 }}>
+            <p className="mt-1 text-white" style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '1.4rem' }}>
               {routine.shot.tagline}
             </p>
-            <p className="mt-1.5 text-sm leading-relaxed" style={{ fontFamily: "'Poppins', sans-serif", color: 'rgba(255,255,255,0.7)' }}>
+            <p className="mt-1.5 leading-relaxed" style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: '1rem', color: 'rgba(255,255,255,0.7)' }}>
               {routine.shot.benefit}
             </p>
           </div>
@@ -155,10 +157,10 @@ export default function ResultsScreen({ hairType, needs, routine, onContinue }: 
                 <p className="text-xs mb-0.5 uppercase tracking-wider" style={{ fontFamily: "'Poppins', sans-serif", color: 'rgba(255,255,255,0.5)' }}>
                   {STEP_LABELS[index]}
                 </p>
-                <p className="text-white" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 500, fontSize: '1.3rem' }}>
+                <p className="text-white" style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '1.4rem' }}>
                   {item.name}
                 </p>
-                <p className="text-xs" style={{ fontFamily: "'Poppins', sans-serif", color: 'rgba(255,255,255,0.65)' }}>
+                <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: '1rem', color: 'rgba(255,255,255,0.65)' }}>
                   {item.benefit}
                 </p>
               </div>
