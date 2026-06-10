@@ -106,19 +106,19 @@ export default function ResultsScreen({ hairType, needs, routine, onContinue }: 
           className="rounded-3xl overflow-hidden"
           style={{ background: (() => { const c = SHOT_COLORS[routine.shot.name]; if (!c) return 'rgba(255,255,255,0.13)'; const r = parseInt(c.slice(1,3),16); const g = parseInt(c.slice(3,5),16); const b = parseInt(c.slice(5,7),16); return `rgba(${r},${g},${b},0.35)`; })(), border: '1px solid rgba(255,255,255,0.35)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)' }}
         >
-          <div className="px-6 pt-6 pb-5">
-            <h2 className="text-white" style={{ fontFamily: "'Coolvetica', sans-serif", fontWeight: 400, fontSize: '2.8rem', lineHeight: 1.05 }}>
+          <div className="px-8 pt-8 pb-7">
+            <h2 className="text-white" style={{ fontFamily: "'Coolvetica', sans-serif", fontWeight: 400, fontSize: '3.2rem', lineHeight: 1.05 }}>
               {routine.shot.name}
             </h2>
-            <p className="mt-1 text-white" style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '1.4rem' }}>
+            <p className="mt-2 text-white" style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '1.5rem' }}>
               {routine.shot.tagline}
             </p>
-            <p className="mt-1.5 leading-relaxed" style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: '1rem', color: 'rgba(255,255,255,0.7)' }}>
+            <p className="mt-2 leading-relaxed" style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: '1.05rem', color: 'rgba(255,255,255,0.7)' }}>
               {routine.shot.benefit}
             </p>
           </div>
-          <div className="h-px mx-6" style={{ background: 'rgba(255,255,255,0.2)' }} />
-          <div className="px-6 py-3">
+          <div className="h-px mx-8" style={{ background: 'rgba(255,255,255,0.2)' }} />
+          <div className="px-8 py-4">
             <p className="text-xs" style={{ fontFamily: "'Poppins', sans-serif", color: 'rgba(255,255,255,0.45)' }}>
               Retirá tu muestra en el stand · Dispensado automáticamente
             </p>
