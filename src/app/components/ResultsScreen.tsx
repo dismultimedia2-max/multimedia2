@@ -166,13 +166,6 @@ export default function ResultsScreen({ hairType, needs, routine, onContinue }: 
                   {item.benefit}
                 </p>
               </div>
-
-              <div
-                className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 text-sm text-white/70"
-                style={{ background: 'rgba(255,255,255,0.15)', fontFamily: "'Cormorant Garamond', serif", fontWeight: 600 }}
-              >
-                {index + 1}
-              </div>
             </motion.div>
           ))}
         </div>
