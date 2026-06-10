@@ -3,6 +3,13 @@ import { Mail, ArrowRight, Home } from 'lucide-react';
 import { useState } from 'react';
 import bgImage from '../../imports/productos_ducha_vertical-1.jpg';
 
+const B = {
+  primary:      '#3D2B1F',
+  primaryLight: '#F5ECE4',
+  primaryBorder:'#D4BBA0',
+  muted:        '#9b8e85',
+};
+
 interface EmailCaptureScreenProps {
   onSubmit: (email: string) => void;
   onSkip: () => void;
@@ -76,7 +83,7 @@ export default function EmailCaptureScreen({ onSubmit, onSkip, onHome }: EmailCa
         >
           <h1
             className="text-white mb-4"
-            style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontSize: '4.2rem', lineHeight: 1.15 }}
+            style={{ fontFamily: "'Coolvetica', sans-serif", fontWeight: 400, fontSize: '4.2rem', lineHeight: 1.15 }}
           >
             Llevate una<br />muestra de regalo
           </h1>
@@ -100,13 +107,13 @@ export default function EmailCaptureScreen({ onSubmit, onSkip, onHome }: EmailCa
             className="relative rounded-full overflow-hidden mb-5 transition-all"
             style={{
               border: `1px solid ${focused || isValid ? 'rgba(255,255,255,0.6)' : 'rgba(255,255,255,0.3)'}`,
-              background: 'rgba(255,255,255,0.15)',
+              background: focused ? 'white' : 'rgba(255,255,255,0.15)',
               backdropFilter: 'blur(12px)',
               WebkitBackdropFilter: 'blur(12px)',
             }}
           >
             <Mail className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5"
-              style={{ color: isValid ? 'white' : 'rgba(255,255,255,0.5)' }} />
+              style={{ color: focused ? B.primary : (isValid ? 'white' : 'rgba(255,255,255,0.5)') }} />
             <input
               type="email"
               value={email}
@@ -114,8 +121,8 @@ export default function EmailCaptureScreen({ onSubmit, onSkip, onHome }: EmailCa
               onFocus={() => setFocused(true)}
               onBlur={() => setFocused(false)}
               placeholder="tu@email.com"
-              className="w-full pl-14 pr-6 py-5 bg-transparent outline-none text-base text-white placeholder:text-white/40"
-              style={{ fontFamily: "'Poppins', sans-serif" }}
+              className={`w-full pl-14 pr-6 py-5 bg-transparent outline-none text-base ${focused ? 'placeholder:text-black/30' : 'placeholder:text-white/40'}`}
+              style={{ fontFamily: "'Poppins', sans-serif", color: focused ? '#1c1917' : 'white' }}
             />
           </div>
 
@@ -124,15 +131,12 @@ export default function EmailCaptureScreen({ onSubmit, onSkip, onHome }: EmailCa
             disabled={!isValid}
             whileHover={isValid ? { scale: 1.02 } : {}}
             whileTap={isValid ? { scale: 0.98 } : {}}
-            className="w-full py-5 rounded-full flex items-center justify-center gap-2 text-base uppercase tracking-widest transition-all mb-5"
+            className="w-full max-w-md mx-auto py-4 rounded-full flex items-center justify-center gap-2 text-sm uppercase tracking-widest transition-all mb-5"
             style={{
               fontFamily: "'Poppins', sans-serif",
               fontWeight: 500,
-              background: isValid ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.1)',
-              color: isValid ? 'white' : 'rgba(255,255,255,0.4)',
-              border: `1px solid ${isValid ? 'rgba(255,255,255,0.5)' : 'rgba(255,255,255,0.2)'}`,
-              backdropFilter: 'blur(12px)',
-              WebkitBackdropFilter: 'blur(12px)',
+              background: isValid ? 'rgba(255,255,255,0.9)' : 'rgba(255,255,255,0.15)',
+              color: isValid ? B.primary : 'rgba(255,255,255,0.4)',
               cursor: isValid ? 'pointer' : 'not-allowed',
             }}
           >
