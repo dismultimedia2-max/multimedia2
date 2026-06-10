@@ -171,6 +171,27 @@ export default function App() {
     setProvidedEmail(false);
   };
 
+  // Reset to splash after 2 minutes of inactivity
+  useEffect(() => {
+    if (currentScreen === 0) return;
+
+    const INACTIVITY_LIMIT = 2 * 60 * 1000;
+    let timer = setTimeout(handleRestart, INACTIVITY_LIMIT);
+
+    const resetTimer = () => {
+      clearTimeout(timer);
+      timer = setTimeout(handleRestart, INACTIVITY_LIMIT);
+    };
+
+    const events = ['mousedown', 'mousemove', 'keydown', 'touchstart', 'scroll'];
+    events.forEach(event => window.addEventListener(event, resetTimer));
+
+    return () => {
+      clearTimeout(timer);
+      events.forEach(event => window.removeEventListener(event, resetTimer));
+    };
+  }, [currentScreen]);
+
   const qBgs = [q1Bg, q2Bg, q3Bg, q4Bg, q5Bg, q6Bg];
 
   const screens = [
