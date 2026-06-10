@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'motion/react';
-import { ChevronLeft, Check } from 'lucide-react';
+import { ChevronLeft, Check, Home } from 'lucide-react';
 
 // Brand palette
 const B = {
@@ -17,6 +17,7 @@ interface QuestionScreenProps {
   totalQuestions: number;
   onAnswer: (answer: string) => void;
   onBack?: () => void;
+  onHome?: () => void;
   showFeedback: boolean;
   selectedOption: string | null;
   currentAnswer?: string;
@@ -115,6 +116,7 @@ export default function QuestionScreen({
   totalQuestions,
   onAnswer,
   onBack,
+  onHome,
   showFeedback,
   selectedOption,
   currentAnswer,
@@ -163,7 +165,20 @@ export default function QuestionScreen({
           {questionNumber} / {totalQuestions}
         </p>
 
-        <div className="w-10" />
+        {onHome ? (
+          <motion.button
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.92 }}
+            onClick={onHome}
+            className="w-10 h-10 flex items-center justify-center rounded-full"
+            style={glass
+              ? { background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.35)', backdropFilter: 'blur(8px)' }
+              : { background: B.primaryLight }
+            }
+          >
+            <Home className="w-5 h-5" style={{ color: glass ? 'white' : B.primary }} />
+          </motion.button>
+        ) : <div className="w-10" />}
       </div>
 
       {/* Progress bar */}

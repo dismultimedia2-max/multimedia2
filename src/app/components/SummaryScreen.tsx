@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Edit2, Check } from 'lucide-react';
+import { Edit2, Check, Home } from 'lucide-react';
 import type { Answer } from '../App';
 
 const B = {
@@ -14,10 +14,11 @@ interface SummaryScreenProps {
   questions: { question: string; options: string[] }[];
   onEdit: (questionIndex: number) => void;
   onFinish: () => void;
+  onHome?: () => void;
   bgImage?: string;
 }
 
-export default function SummaryScreen({ answers, questions, onEdit, onFinish, bgImage }: SummaryScreenProps) {
+export default function SummaryScreen({ answers, questions, onEdit, onFinish, onHome, bgImage }: SummaryScreenProps) {
   const allAnswered = answers.length >= questions.length && answers.every(Boolean);
   const glass = !!bgImage;
 
@@ -39,6 +40,20 @@ export default function SummaryScreen({ answers, questions, onEdit, onFinish, bg
 
       {/* Header */}
       <div className="relative px-10 pt-8 pb-3 flex-shrink-0">
+        {onHome && (
+          <motion.button
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.92 }}
+            onClick={onHome}
+            className="absolute top-8 right-10 w-10 h-10 flex items-center justify-center rounded-full"
+            style={glass
+              ? { background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.35)', backdropFilter: 'blur(8px)' }
+              : { background: B.primaryLight }
+            }
+          >
+            <Home className="w-5 h-5" style={{ color: glass ? 'white' : B.primary }} />
+          </motion.button>
+        )}
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

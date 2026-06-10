@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Instagram, RefreshCw, Package } from 'lucide-react';
+import { Instagram, RefreshCw, Package, Home } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import QRCode from 'react-qr-code';
 
@@ -16,9 +16,10 @@ interface ThankYouScreenProps {
   providedEmail: boolean;
   productName: string;
   onRestart: () => void;
+  onHome?: () => void;
 }
 
-export default function ThankYouScreen({ providedEmail, productName, onRestart }: ThankYouScreenProps) {
+export default function ThankYouScreen({ providedEmail, productName, onRestart, onHome }: ThankYouScreenProps) {
   const [showDispensing, setShowDispensing] = useState(providedEmail);
 
   useEffect(() => {
@@ -35,6 +36,18 @@ export default function ThankYouScreen({ providedEmail, productName, onRestart }
       transition={{ duration: 0.4 }}
       className="size-full flex flex-col bg-white relative overflow-hidden"
     >
+      {onHome && !showDispensing && (
+        <motion.button
+          whileHover={{ scale: 1.08 }}
+          whileTap={{ scale: 0.92 }}
+          onClick={onHome}
+          className="absolute top-10 right-8 z-10 w-10 h-10 flex items-center justify-center rounded-full"
+          style={{ background: B.primaryLight }}
+        >
+          <Home className="w-5 h-5" style={{ color: B.primary }} />
+        </motion.button>
+      )}
+
       {/* Dispensing overlay */}
       {showDispensing && providedEmail && (
         <motion.div

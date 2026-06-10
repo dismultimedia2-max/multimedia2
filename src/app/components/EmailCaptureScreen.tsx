@@ -1,14 +1,15 @@
 import { motion } from 'motion/react';
-import { Mail, ArrowRight } from 'lucide-react';
+import { Mail, ArrowRight, Home } from 'lucide-react';
 import { useState } from 'react';
 import bgImage from '../../imports/productos_ducha_vertical-1.jpg';
 
 interface EmailCaptureScreenProps {
   onSubmit: (email: string) => void;
   onSkip: () => void;
+  onHome?: () => void;
 }
 
-export default function EmailCaptureScreen({ onSubmit, onSkip }: EmailCaptureScreenProps) {
+export default function EmailCaptureScreen({ onSubmit, onSkip, onHome }: EmailCaptureScreenProps) {
   const [email, setEmail] = useState('');
   const [isValid, setIsValid] = useState(false);
   const [focused, setFocused] = useState(false);
@@ -41,6 +42,18 @@ export default function EmailCaptureScreen({ onSubmit, onSkip }: EmailCaptureScr
       />
       {/* Gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60 pointer-events-none" />
+
+      {onHome && (
+        <motion.button
+          whileHover={{ scale: 1.08 }}
+          whileTap={{ scale: 0.92 }}
+          onClick={onHome}
+          className="absolute top-10 right-8 z-10 w-10 h-10 flex items-center justify-center rounded-full"
+          style={{ background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.35)', backdropFilter: 'blur(8px)' }}
+        >
+          <Home className="w-5 h-5 text-white" />
+        </motion.button>
+      )}
 
       <div className="relative flex-1 flex flex-col items-center justify-center px-12">
         {/* Icon */}

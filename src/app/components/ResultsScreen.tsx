@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Sparkles, ArrowRight, Droplets, Wind, Scissors } from 'lucide-react';
+import { Sparkles, ArrowRight, Droplets, Wind, Scissors, Home } from 'lucide-react';
 import type { HairRoutine } from '../utils/hairAnalysis';
 import bgImage from '../../imports/ephyra_bg.jpg';
 
@@ -22,6 +22,7 @@ interface ResultsScreenProps {
   needs: string[];
   routine: HairRoutine;
   onContinue: () => void;
+  onHome?: () => void;
 }
 
 const STEP_ICONS = [
@@ -31,7 +32,7 @@ const STEP_ICONS = [
 ];
 const STEP_LABELS = ['Limpieza', 'Nutrición', 'Peinado'];
 
-export default function ResultsScreen({ hairType, needs, routine, onContinue }: ResultsScreenProps) {
+export default function ResultsScreen({ hairType, needs, routine, onContinue, onHome }: ResultsScreenProps) {
   const routineSteps = [routine.shampoo, routine.treatment, routine.styling];
 
   return (
@@ -49,7 +50,18 @@ export default function ResultsScreen({ hairType, needs, routine, onContinue }: 
       <div className="relative size-full flex flex-col overflow-y-auto">
 
       {/* Header */}
-      <div className="px-8 pt-10 pb-5">
+      <div className="relative px-8 pt-10 pb-5">
+        {onHome && (
+          <motion.button
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.92 }}
+            onClick={onHome}
+            className="absolute top-10 right-8 w-10 h-10 flex items-center justify-center rounded-full"
+            style={{ background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.35)', backdropFilter: 'blur(8px)' }}
+          >
+            <Home className="w-5 h-5 text-white" />
+          </motion.button>
+        )}
         <motion.div
           initial={{ opacity: 0, y: -6 }}
           animate={{ opacity: 1, y: 0 }}

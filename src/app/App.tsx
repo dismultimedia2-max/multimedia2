@@ -210,6 +210,7 @@ export default function App() {
         selectedOption={selectedOption}
         currentAnswer={answers[index]?.answer}
         bgImage={qBgs[index]}
+        onHome={handleRestart}
       />
     )),
     <SummaryScreen
@@ -219,6 +220,7 @@ export default function App() {
       onEdit={handleEditAnswer}
       onFinish={handleFinishDiagnostic}
       bgImage={summaryBg}
+      onHome={handleRestart}
     />,
     <ResultsScreen
       key="results"
@@ -226,17 +228,20 @@ export default function App() {
       needs={hairNeeds}
       routine={hairRoutine ?? getHairRoutine(answers)}
       onContinue={() => setCurrentScreen(10)}
+      onHome={handleRestart}
     />,
     <EmailCaptureScreen
       key="email"
       onSubmit={handleEmailSubmit}
       onSkip={handleSkipEmail}
+      onHome={handleRestart}
     />,
     <ThankYouScreen
       key="thanks"
       providedEmail={providedEmail}
       productName={primaryProduct}
       onRestart={handleRestart}
+      onHome={handleRestart}
     />
   ];
 
