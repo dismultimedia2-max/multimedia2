@@ -172,7 +172,7 @@ export default function ResultsScreen({ hairType, needs, routine, onContinue }: 
       </div>
 
       {/* CTA */}
-      <div className="px-6 pb-12 mt-auto">
+      <div className="px-6 pb-12 mt-auto flex flex-col items-center">
         <motion.button
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
@@ -180,7 +180,7 @@ export default function ResultsScreen({ hairType, needs, routine, onContinue }: 
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           onClick={onContinue}
-          className="w-full py-4 rounded-full flex items-center justify-center gap-2 text-sm uppercase tracking-widest"
+          className="w-full max-w-md py-4 rounded-full flex items-center justify-center gap-2 text-sm uppercase tracking-widest transition-all"
           style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, background: 'rgba(255,255,255,0.9)', color: B.primary }}
         >
           Continuar
