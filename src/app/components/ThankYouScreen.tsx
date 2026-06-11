@@ -152,7 +152,7 @@ export default function ThankYouScreen({ providedEmail, productName, onRestart, 
             <Instagram className="w-10 h-10 mx-auto mb-3" style={{ color: B.primary }} />
             <p
               className="mb-1"
-              style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontSize: '1.4rem', color: '#1c1917' }}
+              style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 600, fontSize: '1.4rem', color: '#1c1917' }}
             >
               Seguinos en Instagram
             </p>
