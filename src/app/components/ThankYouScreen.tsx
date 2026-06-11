@@ -104,9 +104,10 @@ export default function ThankYouScreen({ providedEmail, productName, onRestart, 
               animate={{ opacity: 1 }}
               transition={{ delay: 0.1 }}
               className="text-xs tracking-[0.28em] uppercase mb-4"
-              style={{ fontFamily: "'Poppins', sans-serif", color: B.primary }}
+              style={{ color: B.primary }}
             >
-              Perla Pli
+              <span style={{ fontFamily: "'Andale Mono MT', monospace", fontWeight: 400, letterSpacing: '0.4em' }}>PERLA</span>
+              <span style={{ fontFamily: "'Futura Cyrillic', sans-serif", fontWeight: 300, fontStyle: 'oblique', letterSpacing: '0.1em' }}>PLI.</span>
             </motion.p>
 
             <motion.h1
@@ -114,7 +115,7 @@ export default function ThankYouScreen({ providedEmail, productName, onRestart, 
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.18 }}
               className="mb-4"
-              style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: '3rem', lineHeight: 1.1, color: '#1c1917' }}
+              style={{ fontFamily: "'Coolvetica', sans-serif", fontWeight: 400, fontSize: '3rem', lineHeight: 1.1, color: '#1c1917' }}
             >
               {providedEmail ? '¡Gracias por participar!' : '¡Gracias!'}
             </motion.h1>
