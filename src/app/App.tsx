@@ -10,7 +10,7 @@ import ThankYouScreen from './components/ThankYouScreen';
 import { saveToGoogleSheets } from './utils/googleSheets';
 import { triggerDispenser } from './utils/dispenser';
 import { db } from './utils/firebase';
-import { onValue, ref as dbRef, set as dbSet } from 'firebase/database';
+import { onValue, ref as dbRef, set as dbSet, update as dbUpdate } from 'firebase/database';
 import { calculateHairType, getPrimaryProduct, getHairRoutine } from './utils/hairAnalysis';
 import type { HairRoutine } from './utils/hairAnalysis';
 import q1Bg from '../imports/mascarillas.jpg';
@@ -141,6 +141,17 @@ export default function App() {
     setPrimaryProduct(getPrimaryProduct(answers));
     setHairRoutine(getHairRoutine(answers));
     setCurrentScreen(9); // results
+
+    // Resetea los fines de carrera y guarda el diagnóstico final en Firebase.
+    const updates: Record<string, unknown> = {};
+    questions.forEach((_, i) => { updates[`pregunta${i + 1}`] = null; });
+    updates.resultado = {
+      tipo: result.type,
+      necesidades: result.needs,
+      respuestas: answers.map(a => a?.answer ?? null),
+      timestamp: new Date().toISOString(),
+    };
+    dbUpdate(dbRef(db, 'diagnostico'), updates);
   };
 
   const handleEmailSubmit = async (email: string) => {
