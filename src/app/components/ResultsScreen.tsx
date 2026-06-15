@@ -145,7 +145,7 @@ export default function ResultsScreen({ hairType, needs, routine, onContinue, on
               <img
                 src={SHOT_IMAGES[routine.shot.name]}
                 alt={routine.shot.name}
-                className="w-24 h-32 object-cover rounded-2xl flex-shrink-0"
+                className="w-32 h-44 object-cover rounded-2xl flex-shrink-0"
                 style={{ border: '1px solid rgba(255,255,255,0.35)' }}
               />
             )}
