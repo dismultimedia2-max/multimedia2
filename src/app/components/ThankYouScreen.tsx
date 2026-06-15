@@ -1,7 +1,7 @@
 import { motion } from 'motion/react';
 import { Instagram, RefreshCw, Package, Home } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import QRCode from 'react-qr-code';
+import qrCodeImage from '../../imports/adobe-express-qr-code.png';
 
 const B = {
   primary:      '#3D2B1F',
@@ -9,8 +9,6 @@ const B = {
   primaryBorder:'#D4BBA0',
   muted:        '#9b8e85',
 };
-
-const IG_URL = 'https://www.instagram.com/perlapli/';
 
 interface ThankYouScreenProps {
   providedEmail: boolean;
@@ -168,12 +166,7 @@ export default function ThankYouScreen({ providedEmail, productName, onRestart, 
               className="w-44 h-44 mx-auto rounded-2xl flex items-center justify-center mb-4 p-3"
               style={{ background: '#ffffff', border: `1px solid ${B.primaryBorder}` }}
             >
-              <QRCode
-                value={IG_URL}
-                size={152}
-                fgColor={B.primary}
-                bgColor="#ffffff"
-              />
+              <img src={qrCodeImage} alt="QR Instagram" className="w-full h-full object-contain" />
             </div>
 
             <p
