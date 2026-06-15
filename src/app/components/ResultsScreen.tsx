@@ -2,6 +2,10 @@ import { motion } from 'motion/react';
 import { Sparkles, ArrowRight, Droplets, Wind, Scissors, Home } from 'lucide-react';
 import type { HairRoutine } from '../utils/hairAnalysis';
 import bgImage from '../../imports/ephyra_bg.jpg';
+import seleneImg from '../../imports/selene.jpeg';
+import luminaImg from '../../imports/lumina.jpeg';
+import aquaellaImg from '../../imports/aquaella.jpeg';
+import fortanaImg from '../../imports/fortana.jpeg';
 
 const B = {
   primary:      '#3D2B1F',
@@ -15,6 +19,13 @@ const SHOT_COLORS: Record<string, string> = {
   Lumina:   '#A99833',
   Aquaella: '#132E70',
   Fortana:  '#AA2713',
+};
+
+const SHOT_IMAGES: Record<string, string> = {
+  Selene:   seleneImg,
+  Lumina:   luminaImg,
+  Aquaella: aquaellaImg,
+  Fortana:  fortanaImg,
 };
 
 interface ResultsScreenProps {
@@ -118,16 +129,26 @@ export default function ResultsScreen({ hairType, needs, routine, onContinue, on
           className="rounded-3xl overflow-hidden"
           style={{ background: (() => { const c = SHOT_COLORS[routine.shot.name]; if (!c) return 'rgba(255,255,255,0.13)'; const r = parseInt(c.slice(1,3),16); const g = parseInt(c.slice(3,5),16); const b = parseInt(c.slice(5,7),16); return `rgba(${r},${g},${b},0.35)`; })(), border: '1px solid rgba(255,255,255,0.35)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)' }}
         >
-          <div className="px-8 pt-8 pb-7">
-            <h2 className="text-white" style={{ fontFamily: "'Coolvetica', sans-serif", fontWeight: 400, fontSize: '3.2rem', lineHeight: 1.05 }}>
-              {routine.shot.name}
-            </h2>
-            <p className="mt-2 text-white" style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '1.5rem' }}>
-              {routine.shot.tagline}
-            </p>
-            <p className="mt-2 leading-relaxed" style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: '1.05rem', color: 'rgba(255,255,255,0.7)' }}>
-              {routine.shot.benefit}
-            </p>
+          <div className="px-8 pt-8 pb-7 flex items-center gap-5">
+            <div className="flex-1 min-w-0">
+              <h2 className="text-white" style={{ fontFamily: "'Coolvetica', sans-serif", fontWeight: 400, fontSize: '3.2rem', lineHeight: 1.05 }}>
+                {routine.shot.name}
+              </h2>
+              <p className="mt-2 text-white" style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '1.5rem' }}>
+                {routine.shot.tagline}
+              </p>
+              <p className="mt-2 leading-relaxed" style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: '1.05rem', color: 'rgba(255,255,255,0.7)' }}>
+                {routine.shot.benefit}
+              </p>
+            </div>
+            {SHOT_IMAGES[routine.shot.name] && (
+              <img
+                src={SHOT_IMAGES[routine.shot.name]}
+                alt={routine.shot.name}
+                className="w-24 h-32 object-cover rounded-2xl flex-shrink-0"
+                style={{ border: '1px solid rgba(255,255,255,0.35)' }}
+              />
+            )}
           </div>
           <div className="h-px mx-8" style={{ background: 'rgba(255,255,255,0.2)' }} />
           <div className="px-8 py-4">
