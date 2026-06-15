@@ -2,10 +2,10 @@ import { motion } from 'motion/react';
 import { Sparkles, ArrowRight, Droplets, Wind, Scissors, Home } from 'lucide-react';
 import type { HairRoutine } from '../utils/hairAnalysis';
 import bgImage from '../../imports/ephyra_bg.jpg';
-import seleneImg from '../../imports/selene.jpeg';
-import luminaImg from '../../imports/lumina.jpeg';
-import aquaellaImg from '../../imports/aquaella.jpeg';
-import fortanaImg from '../../imports/fortana.jpeg';
+import seleneImg from '../../imports/shots/selene.png';
+import luminaImg from '../../imports/shots/lumina.png';
+import aquaellaImg from '../../imports/shots/aquaella.png';
+import fortanaImg from '../../imports/shots/fortana.png';
 
 const B = {
   primary:      '#3D2B1F',
