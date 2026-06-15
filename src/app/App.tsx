@@ -10,7 +10,7 @@ import ThankYouScreen from './components/ThankYouScreen';
 import { saveToGoogleSheets } from './utils/googleSheets';
 import { triggerDispenser } from './utils/dispenser';
 import { db } from './utils/firebase';
-import { onValue, ref as dbRef } from 'firebase/database';
+import { onValue, ref as dbRef, set as dbSet } from 'firebase/database';
 import { calculateHairType, getPrimaryProduct, getHairRoutine } from './utils/hairAnalysis';
 import type { HairRoutine } from './utils/hairAnalysis';
 import q1Bg from '../imports/mascarillas.jpg';
@@ -186,26 +186,16 @@ export default function App() {
     if (questionIndex < 0 || questionIndex >= questions.length) return; // no estamos en una pregunta
 
     const answerRef = dbRef(db, `diagnostico/pregunta${questionIndex + 1}`);
-    let baseline: number | null = null;
-    let isFirstSnapshot = true;
 
     const unsubscribe = onValue(answerRef, (snapshot) => {
       const value = snapshot.val();
       if (typeof value !== 'number') return;
-
-      // El primer valor recibido es el que ya estaba guardado de antes: se toma
-      // como referencia, no como una pulsación nueva.
-      if (isFirstSnapshot) {
-        isFirstSnapshot = false;
-        baseline = value;
-        return;
-      }
-
-      if (value === baseline) return; // mismo valor, no es una pulsación nueva
-      baseline = value;
-
-      if (showFeedbackRef.current) return; // ya se está procesando una respuesta
       if (value < 1 || value > 4) return;
+      if (showFeedbackRef.current) return; // ya se está procesando una respuesta
+
+      // Limpiamos el valor para que la próxima pulsación (incluso si es el
+      // mismo número) se detecte como una nueva escritura.
+      dbSet(answerRef, null);
 
       const option = questions[questionIndex].options[value - 1];
       if (option) handleAnswer(option, questionIndex);
