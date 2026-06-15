@@ -9,6 +9,8 @@ import EmailCaptureScreen from './components/EmailCaptureScreen';
 import ThankYouScreen from './components/ThankYouScreen';
 import { saveToGoogleSheets } from './utils/googleSheets';
 import { triggerDispenser } from './utils/dispenser';
+import { db } from './utils/firebase';
+import { onValue, ref as dbRef } from 'firebase/database';
 import { calculateHairType, getPrimaryProduct, getHairRoutine } from './utils/hairAnalysis';
 import type { HairRoutine } from './utils/hairAnalysis';
 import q1Bg from '../imports/mascarillas.jpg';
@@ -45,6 +47,8 @@ export default function App() {
   const [providedEmail, setProvidedEmail] = useState(false);
   const isEditingRef = useRef(false);
   const submittingRef = useRef(false);
+  const currentScreenRef = useRef(currentScreen);
+  const showFeedbackRef = useRef(showFeedback);
   const handleSplashStart = () => {
     setCurrentScreen(1);
   };
@@ -97,13 +101,15 @@ export default function App() {
     // 🧪 FIN TEST
 
     setTimeout(() => {
-      const newAnswers = [...answers];
-      newAnswers[questionIndex] = {
-        question: questions[questionIndex].question,
-        answer,
-        index: questionIndex
-      };
-      setAnswers(newAnswers);
+      setAnswers(prev => {
+        const newAnswers = [...prev];
+        newAnswers[questionIndex] = {
+          question: questions[questionIndex].question,
+          answer,
+          index: questionIndex
+        };
+        return newAnswers;
+      });
       setShowFeedback(false);
       setSelectedOption(null);
 
@@ -111,7 +117,7 @@ export default function App() {
         isEditingRef.current = false;
         setCurrentScreen(8); // volver al summary
       } else if (questionIndex < questions.length - 1) {
-        setCurrentScreen(currentScreen + 1);
+        setCurrentScreen(2 + questionIndex + 1); // siguiente pregunta
       } else {
         setCurrentScreen(8); // summary
       }
@@ -170,6 +176,49 @@ export default function App() {
     setHairRoutine(null);
     setProvidedEmail(false);
   };
+
+  useEffect(() => { currentScreenRef.current = currentScreen; }, [currentScreen]);
+  useEffect(() => { showFeedbackRef.current = showFeedback; }, [showFeedback]);
+
+  // Escucha los finales de carrera de la ESP32 vía Firebase Realtime Database.
+  // La ESP32 escribe en /limitSwitchInput: { value: "respuesta1".."respuesta4", timestamp: <ms> }
+  // cada vez que se presiona un final de carrera. Cada evento se identifica por su
+  // timestamp para no procesar dos veces la misma señal.
+  useEffect(() => {
+    const inputRef = dbRef(db, 'limitSwitchInput');
+    let lastTimestamp = 0;
+    let isFirstSnapshot = true;
+
+    const unsubscribe = onValue(inputRef, (snapshot) => {
+      const data = snapshot.val() as { value?: string; timestamp?: number } | null;
+      if (!data || !data.value || !data.timestamp) return;
+
+      // Ignorar el valor que ya estaba en Firebase al conectarse (evita re-procesar
+      // la última señal al recargar la página o al volver a una pregunta).
+      if (isFirstSnapshot) {
+        isFirstSnapshot = false;
+        lastTimestamp = data.timestamp;
+        return;
+      }
+
+      if (data.timestamp <= lastTimestamp) return;
+      lastTimestamp = data.timestamp;
+
+      const screen = currentScreenRef.current;
+      const questionIndex = screen - 2;
+      if (questionIndex < 0 || questionIndex >= questions.length) return; // no estamos en una pregunta
+      if (showFeedbackRef.current) return; // ya se está procesando una respuesta
+
+      const match = /^respuesta([1-4])$/.exec(data.value);
+      if (!match) return;
+
+      const optionIndex = parseInt(match[1], 10) - 1;
+      const option = questions[questionIndex].options[optionIndex];
+      if (option) handleAnswer(option, questionIndex);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   // Reset to splash after 2 minutes of inactivity
   useEffect(() => {
