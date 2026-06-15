@@ -47,7 +47,6 @@ export default function App() {
   const [providedEmail, setProvidedEmail] = useState(false);
   const isEditingRef = useRef(false);
   const submittingRef = useRef(false);
-  const currentScreenRef = useRef(currentScreen);
   const showFeedbackRef = useRef(showFeedback);
   const handleSplashStart = () => {
     setCurrentScreen(1);
@@ -177,48 +176,43 @@ export default function App() {
     setProvidedEmail(false);
   };
 
-  useEffect(() => { currentScreenRef.current = currentScreen; }, [currentScreen]);
   useEffect(() => { showFeedbackRef.current = showFeedback; }, [showFeedback]);
 
-  // Escucha los finales de carrera de la ESP32 vía Firebase Realtime Database.
-  // La ESP32 escribe en /limitSwitchInput: { value: "respuesta1".."respuesta4", timestamp: <ms> }
-  // cada vez que se presiona un final de carrera. Cada evento se identifica por su
-  // timestamp para no procesar dos veces la misma señal.
+  // Escucha el final de carrera de la pregunta actual vía Firebase Realtime Database.
+  // La ESP32 escribe en /diagnostico/preguntaN un número 1-4 según qué final de carrera
+  // se presionó (1 = primera opción, 2 = segunda, etc).
   useEffect(() => {
-    const inputRef = dbRef(db, 'limitSwitchInput');
-    let lastTimestamp = 0;
+    const questionIndex = currentScreen - 2;
+    if (questionIndex < 0 || questionIndex >= questions.length) return; // no estamos en una pregunta
+
+    const answerRef = dbRef(db, `diagnostico/pregunta${questionIndex + 1}`);
+    let baseline: number | null = null;
     let isFirstSnapshot = true;
 
-    const unsubscribe = onValue(inputRef, (snapshot) => {
-      const data = snapshot.val() as { value?: string; timestamp?: number } | null;
-      if (!data || !data.value || !data.timestamp) return;
+    const unsubscribe = onValue(answerRef, (snapshot) => {
+      const value = snapshot.val();
+      if (typeof value !== 'number') return;
 
-      // Ignorar el valor que ya estaba en Firebase al conectarse (evita re-procesar
-      // la última señal al recargar la página o al volver a una pregunta).
+      // El primer valor recibido es el que ya estaba guardado de antes: se toma
+      // como referencia, no como una pulsación nueva.
       if (isFirstSnapshot) {
         isFirstSnapshot = false;
-        lastTimestamp = data.timestamp;
+        baseline = value;
         return;
       }
 
-      if (data.timestamp <= lastTimestamp) return;
-      lastTimestamp = data.timestamp;
+      if (value === baseline) return; // mismo valor, no es una pulsación nueva
+      baseline = value;
 
-      const screen = currentScreenRef.current;
-      const questionIndex = screen - 2;
-      if (questionIndex < 0 || questionIndex >= questions.length) return; // no estamos en una pregunta
       if (showFeedbackRef.current) return; // ya se está procesando una respuesta
+      if (value < 1 || value > 4) return;
 
-      const match = /^respuesta([1-4])$/.exec(data.value);
-      if (!match) return;
-
-      const optionIndex = parseInt(match[1], 10) - 1;
-      const option = questions[questionIndex].options[optionIndex];
+      const option = questions[questionIndex].options[value - 1];
       if (option) handleAnswer(option, questionIndex);
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [currentScreen]);
 
   // Reset to splash after 2 minutes of inactivity
   useEffect(() => {
