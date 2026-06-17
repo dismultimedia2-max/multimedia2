@@ -189,30 +189,47 @@ export default function App() {
 
   useEffect(() => { showFeedbackRef.current = showFeedback; }, [showFeedback]);
 
-  // Escucha el final de carrera de la pregunta actual vía Firebase Realtime Database.
-  // La ESP32 escribe en /diagnostico/preguntaN un número 1-4 según qué final de carrera
-  // se presionó (1 = primera opción, 2 = segunda, etc).
+  // Coordina con la ESP32 qué pregunta está activa vía estado/preguntaActiva.
+  // Si no estamos en una pantalla de pregunta, señaliza null para que la ESP32 ignore pulsaciones.
   useEffect(() => {
     const questionIndex = currentScreen - 2;
-    if (questionIndex < 0 || questionIndex >= questions.length) return; // no estamos en una pregunta
+    const estadoRef = dbRef(db, 'estado/preguntaActiva');
 
-    const answerRef = dbRef(db, `diagnostico/pregunta${questionIndex + 1}`);
+    if (questionIndex < 0 || questionIndex >= questions.length) {
+      dbSet(estadoRef, null);
+      return;
+    }
 
+    const preguntaNum = questionIndex + 1;
+    const answerRef = dbRef(db, `diagnostico/pregunta${preguntaNum}`);
+
+    // Señaliza a la ESP32 qué pregunta está activa ahora.
+    dbSet(estadoRef, preguntaNum);
+
+    // El primer snapshot refleja el valor que ya estaba en Firebase (posiblemente
+    // de una pulsación anterior o de un reinicio). Lo ignoramos y limpiamos si había algo.
+    let settled = false;
     const unsubscribe = onValue(answerRef, (snapshot) => {
       const value = snapshot.val();
-      if (typeof value !== 'number') return;
-      if (value < 1 || value > 4) return;
-      if (showFeedbackRef.current) return; // ya se está procesando una respuesta
 
-      // Limpiamos el valor para que la próxima pulsación (incluso si es el
-      // mismo número) se detecte como una nueva escritura.
-      dbSet(answerRef, null);
+      if (!settled) {
+        settled = true;
+        if (value !== null) dbSet(answerRef, null); // limpiar valor residual
+        return;
+      }
 
+      if (typeof value !== 'number' || value < 1 || value > 4) return;
+      if (showFeedbackRef.current) return;
+
+      dbSet(answerRef, null); // limpiar para que el mismo botón vuelva a funcionar
       const option = questions[questionIndex].options[value - 1];
       if (option) handleAnswer(option, questionIndex);
     });
 
-    return () => unsubscribe();
+    return () => {
+      unsubscribe();
+      dbSet(estadoRef, null); // al salir de la pregunta, desactivar la ESP32
+    };
   }, [currentScreen]);
 
   // Reset to splash after 2 minutes of inactivity
