@@ -49,6 +49,7 @@ export interface QuizData {
   hairType: string;
   needs: string;
   answers: string;
+  shot: string;
   timestamp: string;
   submissionId: string;
 }
