@@ -105,7 +105,7 @@ export default function ThankYouScreen({ providedEmail, productName, onRestart, 
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.4 }}
-            className="w-full max-w-md rounded-3xl p-8 flex flex-col items-center gap-6 text-center"
+            className="w-[70%] rounded-3xl p-8 flex flex-col items-center gap-6 text-center"
             style={{ background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.35)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)' }}
           >
             {/* Top */}
