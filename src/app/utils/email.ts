@@ -4,6 +4,8 @@ const SERVICE_ID  = 'service_5difpgr';
 const TEMPLATE_ID = 'template_atkzhnp';
 const PUBLIC_KEY  = 't8UUso1Neo04nh8D6';
 
+const BASE_URL = 'https://multimedia2-xo95.onrender.com';
+
 const SHOT_COLORS: Record<string, string> = {
   Selene:   '#AE6283',
   Lumina:   '#A99833',
@@ -11,21 +13,13 @@ const SHOT_COLORS: Record<string, string> = {
   Fortana:  '#AA2713',
 };
 
-interface EmailData {
-  to_email: string;
-  hairType: string;
-  needs: string;
-  shot: string;
-  shotColor: string;
-  shotTagline: string;
-  shotBenefit: string;
-  shampoo: string;
-  shampooBenefit: string;
-  treatment: string;
-  treatmentBenefit: string;
-  styling: string;
-  stylingBenefit: string;
-}
+// Shot colors at 35% opacity over #1a1a1a background
+const SHOT_GLASS_COLORS: Record<string, string> = {
+  Selene:   '#4E333F',
+  Lumina:   '#4C4623',
+  Aquaella: '#182138',
+  Fortana:  '#4C1F18',
+};
 
 export async function sendDiagnosticEmail(params: {
   email: string;
@@ -43,12 +37,15 @@ export async function sendDiagnosticEmail(params: {
 }): Promise<boolean> {
   if (!params.email || params.email === 'Sin email') return false;
 
-  const data: EmailData = {
+  const data = {
     to_email:         params.email,
     hairType:         params.hairType,
     needs:            params.needs,
     shot:             params.shot,
     shotColor:        SHOT_COLORS[params.shot] || '#3D2B1F',
+    shotGlassColor:   SHOT_GLASS_COLORS[params.shot] || '#2a2220',
+    shotImg:          `${BASE_URL}/shots/${params.shot.toLowerCase()}.png`,
+    logoImg:          `${BASE_URL}/logo-perlapli.png`,
     shotTagline:      params.shotTagline,
     shotBenefit:      params.shotBenefit,
     shampoo:          params.shampoo,
