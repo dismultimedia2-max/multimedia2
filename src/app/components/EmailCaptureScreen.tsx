@@ -141,7 +141,7 @@ export default function EmailCaptureScreen({ onSubmit, onSkip, onHome }: EmailCa
               onFocus={handleFocus}
               onBlur={handleBlur}
               placeholder="tu@email.com"
-              className={`w-full pl-14 pr-6 py-5 bg-transparent outline-none text-base ${focused ? 'placeholder:text-black/30' : 'placeholder:text-white/40'}`}
+              className={`w-full pl-14 pr-6 py-5 bg-transparent outline-none text-base ${focused ? 'placeholder:text-black/30' : 'placeholder:text-white'}`}
               style={{ fontFamily: "'Poppins', sans-serif", color: focused ? '#1c1917' : 'white' }}
             />
           </div>
