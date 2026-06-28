@@ -182,7 +182,7 @@ export default function ResultsScreen({ hairType, needs, routine, onContinue, on
               style={{ background: 'rgba(255,255,255,0.11)', border: '1px solid rgba(255,255,255,0.25)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}
             >
               <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 text-white/80"
+                className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 self-center text-white/80"
                 style={{ background: 'rgba(255,255,255,0.15)' }}
               >
                 {STEP_ICONS[index]}
