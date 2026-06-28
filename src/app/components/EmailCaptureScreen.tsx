@@ -20,6 +20,7 @@ export default function EmailCaptureScreen({ onSubmit, onSkip, onHome }: EmailCa
   const [email, setEmail] = useState('');
   const [isValid, setIsValid] = useState(false);
   const [focused, setFocused] = useState(false);
+  const [loading, setLoading] = useState(false);
   const blurTimeout = React.useRef<ReturnType<typeof setTimeout>>();
 
   const validateEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
@@ -40,7 +41,10 @@ export default function EmailCaptureScreen({ onSubmit, onSkip, onHome }: EmailCa
   };
 
   const handleSubmitClick = () => {
-    if (isValid) onSubmit(email);
+    if (isValid && !loading) {
+      setLoading(true);
+      onSubmit(email);
+    }
   };
 
   return (
@@ -137,21 +141,35 @@ export default function EmailCaptureScreen({ onSubmit, onSkip, onHome }: EmailCa
 
           <motion.button
             type="button"
-            disabled={!isValid}
+            disabled={!isValid || loading}
             onClick={handleSubmitClick}
-            whileHover={isValid ? { scale: 1.02 } : {}}
-            whileTap={isValid ? { scale: 0.98 } : {}}
+            whileHover={isValid && !loading ? { scale: 1.02 } : {}}
+            whileTap={isValid && !loading ? { scale: 0.98 } : {}}
             className="w-full max-w-md mx-auto py-4 rounded-full flex items-center justify-center gap-2 text-sm uppercase tracking-widest transition-all mb-5"
             style={{
               fontFamily: "'Poppins', sans-serif",
               fontWeight: 500,
-              background: 'rgba(255,255,255,0.9)',
+              background: loading ? 'rgba(255,255,255,0.6)' : 'rgba(255,255,255,0.9)',
               color: B.primary,
-              cursor: isValid ? 'pointer' : 'not-allowed',
+              cursor: isValid && !loading ? 'pointer' : 'not-allowed',
             }}
           >
-            Recibir mi muestra
-            <ArrowRight className="w-5 h-5" />
+            {loading ? (
+              <>
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+                  className="w-5 h-5 rounded-full border-2"
+                  style={{ borderColor: `${B.primary}33`, borderTopColor: B.primary }}
+                />
+                Enviando...
+              </>
+            ) : (
+              <>
+                Recibir mi muestra
+                <ArrowRight className="w-5 h-5" />
+              </>
+            )}
           </motion.button>
         </motion.form>
       </div>
