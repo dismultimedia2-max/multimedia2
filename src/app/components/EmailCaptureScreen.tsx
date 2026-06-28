@@ -109,7 +109,7 @@ export default function EmailCaptureScreen({ onSubmit, onSkip, onHome }: EmailCa
           initial={{ y: 14, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.3 }}
-          onSubmit={handleSubmit}
+          onSubmit={(e) => { e.preventDefault(); handleSubmitClick(); }}
           className="w-full max-w-xl"
         >
           <div
