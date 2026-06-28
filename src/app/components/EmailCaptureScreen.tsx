@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
 import { Mail, ArrowRight, Home } from 'lucide-react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import bgImage from '../../imports/productos_ducha_vertical-1.jpg';
 
 const B = {
@@ -20,6 +20,7 @@ export default function EmailCaptureScreen({ onSubmit, onSkip, onHome }: EmailCa
   const [email, setEmail] = useState('');
   const [isValid, setIsValid] = useState(false);
   const [focused, setFocused] = useState(false);
+  const blurTimeout = React.useRef<ReturnType<typeof setTimeout>>();
 
   const validateEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
 
@@ -29,8 +30,16 @@ export default function EmailCaptureScreen({ onSubmit, onSkip, onHome }: EmailCa
     setIsValid(validateEmail(value));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleFocus = () => {
+    clearTimeout(blurTimeout.current);
+    setFocused(true);
+  };
+
+  const handleBlur = () => {
+    blurTimeout.current = setTimeout(() => setFocused(false), 200);
+  };
+
+  const handleSubmitClick = () => {
     if (isValid) onSubmit(email);
   };
 
@@ -118,8 +127,8 @@ export default function EmailCaptureScreen({ onSubmit, onSkip, onHome }: EmailCa
               type="email"
               value={email}
               onChange={handleEmailChange}
-              onFocus={() => setFocused(true)}
-              onBlur={() => setFocused(false)}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
               placeholder="tu@email.com"
               className={`w-full pl-14 pr-6 py-5 bg-transparent outline-none text-base ${focused ? 'placeholder:text-black/30' : 'placeholder:text-white/40'}`}
               style={{ fontFamily: "'Poppins', sans-serif", color: focused ? '#1c1917' : 'white' }}
@@ -127,9 +136,9 @@ export default function EmailCaptureScreen({ onSubmit, onSkip, onHome }: EmailCa
           </div>
 
           <motion.button
-            type="submit"
+            type="button"
             disabled={!isValid}
-            onPointerDown={(e) => { if (isValid) { e.preventDefault(); onSubmit(email); } }}
+            onClick={handleSubmitClick}
             whileHover={isValid ? { scale: 1.02 } : {}}
             whileTap={isValid ? { scale: 0.98 } : {}}
             className="w-full max-w-md mx-auto py-4 rounded-full flex items-center justify-center gap-2 text-sm uppercase tracking-widest transition-all mb-5"
