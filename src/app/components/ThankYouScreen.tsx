@@ -162,7 +162,7 @@ export default function ThankYouScreen({ providedEmail, productName, onRestart, 
                 style={{ fontFamily: "'Poppins', sans-serif", fontSize: '1.3rem', color: 'rgba(255,255,255,0.75)' }}
               >
                 {providedEmail
-                  ? 'Retirá tu muestra de regalo en el stand.\nTe enviamos más info a tu email.'
+                  ? <>Retirá tu muestra de regalo en el stand.<br />Te enviamos más info a tu email.</>
                   : 'Esperamos que hayas disfrutado tu diagnóstico capilar.'}
               </motion.p>
             </div>
