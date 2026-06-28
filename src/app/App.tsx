@@ -9,6 +9,7 @@ import EmailCaptureScreen from './components/EmailCaptureScreen';
 import ThankYouScreen from './components/ThankYouScreen';
 import { saveToGoogleSheets } from './utils/googleSheets';
 import { triggerDispenser } from './utils/dispenser';
+import { sendDiagnosticEmail } from './utils/email';
 import { db } from './utils/firebase';
 import { onValue, ref as dbRef, set as dbSet, update as dbUpdate } from 'firebase/database';
 import { calculateHairType, getPrimaryProduct, getHairRoutine } from './utils/hairAnalysis';
@@ -177,6 +178,7 @@ export default function App() {
       submissionId: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`
     };
     await saveToGoogleSheets(data);
+    sendDiagnosticEmail(data);
     await triggerDispenser(primaryProduct);
     setProvidedEmail(true);
     setCurrentScreen(11); // thank you
