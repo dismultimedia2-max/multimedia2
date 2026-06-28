@@ -158,12 +158,21 @@ export default function App() {
     if (submittingRef.current) return;
     submittingRef.current = true;
     const result = calculateHairType(answers);
+    const routine = hairRoutine ?? getHairRoutine(answers);
     const data = {
       email,
       hairType: result.type,
       needs: result.needs.join(', '),
       answers: answers.map(a => `${a.question}: ${a.answer}`).join(' | '),
-      shot: primaryProduct,
+      shot: routine.shot.name,
+      shotTagline: routine.shot.tagline,
+      shotBenefit: routine.shot.benefit,
+      shampoo: routine.shampoo.name,
+      shampooBenefit: routine.shampoo.benefit,
+      treatment: routine.treatment.name,
+      treatmentBenefit: routine.treatment.benefit,
+      styling: routine.styling.name,
+      stylingBenefit: routine.styling.benefit,
       timestamp: new Date().toISOString(),
       submissionId: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`
     };
@@ -175,12 +184,21 @@ export default function App() {
 
   const handleSkipEmail = () => {
     const result = calculateHairType(answers);
+    const routine = hairRoutine ?? getHairRoutine(answers);
     const data = {
       email: 'Sin email',
       hairType: result.type,
       needs: result.needs.join(', '),
       answers: answers.map(a => `${a.question}: ${a.answer}`).join(' | '),
-      shot: primaryProduct,
+      shot: routine.shot.name,
+      shotTagline: routine.shot.tagline,
+      shotBenefit: routine.shot.benefit,
+      shampoo: routine.shampoo.name,
+      shampooBenefit: routine.shampoo.benefit,
+      treatment: routine.treatment.name,
+      treatmentBenefit: routine.treatment.benefit,
+      styling: routine.styling.name,
+      stylingBenefit: routine.styling.benefit,
       timestamp: new Date().toISOString(),
       submissionId: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`
     };

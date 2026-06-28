@@ -50,6 +50,14 @@ export interface QuizData {
   needs: string;
   answers: string;
   shot: string;
+  shotTagline: string;
+  shotBenefit: string;
+  shampoo: string;
+  shampooBenefit: string;
+  treatment: string;
+  treatmentBenefit: string;
+  styling: string;
+  stylingBenefit: string;
   timestamp: string;
   submissionId: string;
 }
