@@ -129,6 +129,7 @@ export default function EmailCaptureScreen({ onSubmit, onSkip, onHome }: EmailCa
           <motion.button
             type="submit"
             disabled={!isValid}
+            onPointerDown={(e) => { if (isValid) { e.preventDefault(); onSubmit(email); } }}
             whileHover={isValid ? { scale: 1.02 } : {}}
             whileTap={isValid ? { scale: 0.98 } : {}}
             className="w-full max-w-md mx-auto py-4 rounded-full flex items-center justify-center gap-2 text-sm uppercase tracking-widest transition-all mb-5"
