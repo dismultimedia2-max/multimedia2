@@ -3,6 +3,7 @@ import { Instagram, RefreshCw, Package, Home } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import qrCodeImage from '../../imports/adobe-express-qr-code.png';
 import bgImage from '../../imports/bandeja_de_productos.jpg';
+import serumVideo from '../../imports/ChatGPT_haceme_un_prompt_para__Kling_26_Pro_75729.mp4';
 
 const B = {
   primary:      '#3D2B1F',
@@ -51,50 +52,64 @@ export default function ThankYouScreen({ providedEmail, productName, onRestart, 
         </motion.button>
       )}
 
-      {/* Dispensing overlay */}
+      {/* Dispensing overlay — fullscreen with video background */}
       {showDispensing && providedEmail && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0, transition: { duration: 0.15 } }}
           className="absolute inset-0 z-20 flex flex-col items-center justify-center"
-          style={{ background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(8px)' }}
         >
-          <motion.div
-            animate={{ y: [0, -16, 0] }}
-            transition={{ duration: 1.2, repeat: Infinity, ease: 'easeInOut' }}
-            className="w-24 h-24 rounded-full flex items-center justify-center mb-8"
-            style={{ background: B.primaryLight }}
-          >
-            <Package className="w-12 h-12" style={{ color: B.primary }} />
-          </motion.div>
-          <p
-            className="text-center mb-2"
-            style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontSize: '2rem', color: 'white' }}
-          >
-            Dispensando tu muestra...
-          </p>
-          {productName && (
-            <p
-              className="text-center tracking-widest uppercase text-sm"
-              style={{ fontFamily: "'Poppins', sans-serif", color: 'rgba(255,255,255,0.7)' }}
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+            src={serumVideo}
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70 pointer-events-none" />
+
+          <div className="relative flex flex-col items-center justify-center px-8">
+            <motion.div
+              animate={{ y: [0, -16, 0] }}
+              transition={{ duration: 1.2, repeat: Infinity, ease: 'easeInOut' }}
+              className="w-28 h-28 rounded-full flex items-center justify-center mb-10"
+              style={{ background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.3)', backdropFilter: 'blur(12px)' }}
             >
-              {productName}
-            </p>
-          )}
-          <motion.div
-            className="flex gap-2 mt-8"
-            animate={{ opacity: [0.4, 1, 0.4] }}
-            transition={{ duration: 1.4, repeat: Infinity }}
-          >
-            {[0, 1, 2].map(i => (
-              <div
-                key={i}
-                className="w-2 h-2 rounded-full"
-                style={{ background: B.primaryBorder }}
-              />
-            ))}
-          </motion.div>
+              <Package className="w-14 h-14 text-white" />
+            </motion.div>
+
+            <h1
+              className="text-center mb-4 text-white"
+              style={{ fontFamily: "'Coolvetica', sans-serif", fontWeight: 400, fontSize: '3.8rem', lineHeight: 1.1 }}
+            >
+              Dispensando tu muestra...
+            </h1>
+
+            {productName && (
+              <p
+                className="text-center tracking-[0.3em] uppercase mb-8"
+                style={{ fontFamily: "'Coolvetica', sans-serif", fontWeight: 400, fontSize: '2.2rem', color: 'rgba(255,255,255,0.8)' }}
+              >
+                {productName}
+              </p>
+            )}
+
+            <motion.div
+              className="flex gap-3 mt-4"
+              animate={{ opacity: [0.3, 1, 0.3] }}
+              transition={{ duration: 1.4, repeat: Infinity }}
+            >
+              {[0, 1, 2].map(i => (
+                <div
+                  key={i}
+                  className="w-2.5 h-2.5 rounded-full"
+                  style={{ background: 'rgba(255,255,255,0.6)' }}
+                />
+              ))}
+            </motion.div>
+          </div>
         </motion.div>
       )}
 
