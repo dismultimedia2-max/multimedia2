@@ -75,16 +75,23 @@ export default function EmailCaptureScreen({ onSubmit, onSkip, onHome }: EmailCa
         </motion.button>
       )}
 
-      <div className="relative flex-1 flex flex-col items-center justify-center px-12">
+      <div className="relative flex-1 flex flex-col items-center justify-center px-8">
+        <motion.div
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.4 }}
+          className="w-[85%] rounded-3xl p-8 flex flex-col items-center"
+          style={{ background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.35)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)' }}
+        >
         {/* Icon */}
         <motion.div
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.1, type: 'spring', stiffness: 180 }}
-          className="w-24 h-24 rounded-full flex items-center justify-center mb-8"
-          style={{ background: 'rgba(255,255,255,0.2)', border: '1px solid rgba(255,255,255,0.4)', backdropFilter: 'blur(12px)' }}
+          className="w-20 h-20 rounded-full flex items-center justify-center mb-6"
+          style={{ background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.3)' }}
         >
-          <Mail className="w-11 h-11 text-white" />
+          <Mail className="w-10 h-10 text-white" />
         </motion.div>
 
         {/* Heading */}
@@ -92,17 +99,17 @@ export default function EmailCaptureScreen({ onSubmit, onSkip, onHome }: EmailCa
           initial={{ y: 14, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.18 }}
-          className="text-center mb-12"
+          className="text-center mb-8"
         >
           <h1
             className="text-white mb-4"
-            style={{ fontFamily: "'Coolvetica', sans-serif", fontWeight: 400, fontSize: '4.2rem', lineHeight: 1.15 }}
+            style={{ fontFamily: "'Coolvetica', sans-serif", fontWeight: 400, fontSize: '3.6rem', lineHeight: 1.15 }}
           >
             Llevate una<br />muestra de regalo
           </h1>
           <p
             className="leading-relaxed"
-            style={{ fontFamily: "'Poppins', sans-serif", fontSize: '1.5rem', color: 'rgba(255,255,255,0.85)' }}
+            style={{ fontFamily: "'Poppins', sans-serif", fontSize: '1.3rem', color: 'rgba(255,255,255,0.8)' }}
           >
             Dejanos tu email y recibís una muestra<br />del producto ideal para tu tipo de pelo
           </p>
@@ -114,7 +121,7 @@ export default function EmailCaptureScreen({ onSubmit, onSkip, onHome }: EmailCa
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.3 }}
           onSubmit={(e) => { e.preventDefault(); handleSubmitClick(); }}
-          className="w-full max-w-xl"
+          className="w-full"
         >
           <div
             className="relative rounded-full overflow-hidden mb-5 transition-all"
@@ -172,6 +179,7 @@ export default function EmailCaptureScreen({ onSubmit, onSkip, onHome }: EmailCa
             )}
           </motion.button>
         </motion.form>
+        </motion.div>
       </div>
 
       {/* Skip */}
