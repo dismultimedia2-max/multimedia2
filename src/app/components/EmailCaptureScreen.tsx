@@ -101,8 +101,8 @@ export default function EmailCaptureScreen({ onSubmit, onSkip, onHome }: EmailCa
             Llevate una<br />muestra de regalo
           </h1>
           <p
-            className="text-xl leading-relaxed"
-            style={{ fontFamily: "'Poppins', sans-serif", color: 'rgba(255,255,255,0.85)' }}
+            className="leading-relaxed"
+            style={{ fontFamily: "'Poppins', sans-serif", fontSize: '1.5rem', color: 'rgba(255,255,255,0.85)' }}
           >
             Dejanos tu email y recibís una muestra<br />del producto ideal para tu tipo de pelo
           </p>
