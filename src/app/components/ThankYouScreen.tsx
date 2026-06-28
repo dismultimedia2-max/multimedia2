@@ -158,8 +158,8 @@ export default function ThankYouScreen({ providedEmail, productName, onRestart, 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.46 }}
-                className="text-sm leading-relaxed"
-                style={{ fontFamily: "'Poppins', sans-serif", color: 'rgba(255,255,255,0.75)' }}
+                className="leading-relaxed"
+                style={{ fontFamily: "'Poppins', sans-serif", fontSize: '1.3rem', color: 'rgba(255,255,255,0.75)' }}
               >
                 {providedEmail
                   ? 'Retirá tu muestra de regalo en el stand.\nTe enviamos más info a tu email.'
