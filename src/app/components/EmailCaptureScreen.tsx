@@ -133,7 +133,7 @@ export default function EmailCaptureScreen({ onSubmit, onSkip, onHome }: EmailCa
             }}
           >
             <Mail className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5"
-              style={{ color: focused ? B.primary : (isValid ? 'white' : 'rgba(255,255,255,0.5)') }} />
+              style={{ color: focused ? B.primary : 'white' }} />
             <input
               type="email"
               value={email}
