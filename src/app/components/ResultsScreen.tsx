@@ -41,7 +41,7 @@ const STEP_ICONS = [
   <Sparkles className="w-4 h-4" />,
   <Wind className="w-4 h-4" />,
 ];
-const STEP_LABELS = ['Limpieza', 'Nutrición', 'Peinado'];
+const STEP_LABELS = ['Shampoo', 'Mascarilla', 'Mousse de definición'];
 
 export default function ResultsScreen({ hairType, needs, routine, onContinue, onHome }: ResultsScreenProps) {
   const routineSteps = [routine.shampoo, routine.treatment, routine.styling];
@@ -80,7 +80,7 @@ export default function ResultsScreen({ hairType, needs, routine, onContinue, on
           className="flex items-center gap-2 mb-3"
         >
           <Sparkles className="w-4 h-4 text-white/70" />
-          <p className="text-xs tracking-[0.28em] uppercase" style={{ fontFamily: "'Poppins', sans-serif", color: 'rgba(255,255,255,0.65)' }}>
+          <p className="text-xs tracking-[0.28em] uppercase" style={{ fontFamily: "'Poppins', sans-serif", color: 'white' }}>
             Tu diagnóstico
           </p>
         </motion.div>
@@ -117,7 +117,7 @@ export default function ResultsScreen({ hairType, needs, routine, onContinue, on
           animate={{ opacity: 1 }}
           transition={{ delay: 0.32 }}
           className="text-xs tracking-[0.22em] uppercase mb-3"
-          style={{ fontFamily: "'Poppins', sans-serif", color: 'rgba(255,255,255,0.55)' }}
+          style={{ fontFamily: "'Poppins', sans-serif", color: 'white' }}
         >
           Tu muestra de regalo
         </motion.p>
@@ -165,10 +165,20 @@ export default function ResultsScreen({ hairType, needs, routine, onContinue, on
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
-          className="text-xs tracking-[0.22em] uppercase mb-3"
-          style={{ fontFamily: "'Poppins', sans-serif", color: 'rgba(255,255,255,0.55)' }}
+          className="text-xs tracking-[0.22em] uppercase mb-1"
+          style={{ fontFamily: "'Poppins', sans-serif", color: 'white' }}
         >
-          Tu rutina completa Perla Pli
+          Tu rutina Perla Pli
+        </motion.p>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.54 }}
+          className="mb-3"
+          style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: '0.9rem', color: 'rgba(255,255,255,0.6)' }}
+        >
+          Seguí estos pasos y potenciá tu cabello con los productos Perla Pli.
         </motion.p>
 
         <div className="space-y-3">
