@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
 import { Home, ArrowRight } from 'lucide-react';
-import splashVideo from '../../imports/ChatGPT_haceme_un_prompt_para__Kling_26_Pro_75729.mp4';
+import bgImage from '../../imports/ChatGPT_Image_May_23__2026__05_13_09_PM.jpg';
 
 const B = {
   primary: '#3D2B1F',
@@ -52,16 +52,9 @@ export default function HowItWorksScreen({ onStart, onHome }: HowItWorksScreenPr
       transition={{ duration: 0.5 }}
       className="relative size-full overflow-hidden"
     >
-      {/* Background video */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover"
-        src={splashVideo}
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/45 to-black/70 pointer-events-none" />
+      {/* Background image */}
+      <img src={bgImage} alt="" className="absolute inset-0 w-full h-full object-cover" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/50 to-black/75 pointer-events-none" />
 
       {/* Home button */}
       <motion.button
@@ -86,7 +79,7 @@ export default function HowItWorksScreen({ onStart, onHome }: HowItWorksScreenPr
             initial={{ y: 16, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="text-center mb-8 w-full"
+            className="text-center mb-8"
           >
             <h1
               className="text-white mb-3"
@@ -95,8 +88,14 @@ export default function HowItWorksScreen({ onStart, onHome }: HowItWorksScreenPr
               ¿Cómo funciona?
             </h1>
             <p
-              className="leading-relaxed"
-              style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: '1.1rem', color: 'rgba(255,255,255,0.75)' }}
+              className="leading-relaxed mx-auto"
+              style={{
+                fontFamily: "'Poppins', sans-serif",
+                fontWeight: 400,
+                fontSize: '1.25rem',
+                color: 'rgba(255,255,255,0.8)',
+                maxWidth: '26ch',
+              }}
             >
               Descubrí cuál es el producto ideal para tu tipo de pelo realizando este breve diagnóstico.
             </p>
@@ -110,7 +109,7 @@ export default function HowItWorksScreen({ onStart, onHome }: HowItWorksScreenPr
                 initial={{ x: -20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.3 + i * 0.07 }}
-                className="flex gap-4 rounded-2xl px-5 py-4"
+                className="flex items-center gap-4 rounded-2xl px-5 py-4"
                 style={{
                   background: 'rgba(255,255,255,0.13)',
                   border: '1px solid rgba(255,255,255,0.25)',
@@ -120,11 +119,11 @@ export default function HowItWorksScreen({ onStart, onHome }: HowItWorksScreenPr
               >
                 {/* Step number badge */}
                 <div
-                  className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
+                  className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0"
                   style={{ background: 'rgba(255,255,255,0.9)' }}
                 >
                   <span
-                    style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '0.85rem', color: B.primary }}
+                    style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '1rem', color: B.primary }}
                   >
                     {step.n}
                   </span>
@@ -134,14 +133,14 @@ export default function HowItWorksScreen({ onStart, onHome }: HowItWorksScreenPr
                 <div className="flex-1 min-w-0">
                   <p
                     className="text-white leading-snug"
-                    style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: '1rem' }}
+                    style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: '1.15rem' }}
                   >
                     {step.text}
                   </p>
                   {step.sub && (
                     <p
                       className="mt-1 leading-relaxed"
-                      style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: '0.85rem', color: 'rgba(255,255,255,0.6)' }}
+                      style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: '0.95rem', color: 'rgba(255,255,255,0.6)' }}
                     >
                       {step.sub}
                     </p>
@@ -170,16 +169,17 @@ export default function HowItWorksScreen({ onStart, onHome }: HowItWorksScreenPr
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={onStart}
-            className="w-full max-w-md py-5 rounded-full flex items-center justify-center gap-2 text-sm uppercase tracking-widest"
+            className="w-full max-w-md py-5 rounded-full flex items-center justify-center gap-2 uppercase tracking-widest"
             style={{
               fontFamily: "'Poppins', sans-serif",
               fontWeight: 500,
+              fontSize: '1.1rem',
               background: 'rgba(255,255,255,0.9)',
               color: B.primary,
             }}
           >
             Comenzar
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-5 h-5" />
           </motion.button>
         </div>
       </div>
