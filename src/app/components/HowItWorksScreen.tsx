@@ -18,7 +18,6 @@ const steps = [
   {
     n: 3,
     text: 'Elegí tu respuesta colocando la pelota de madera en el agujero correspondiente.',
-    sub: 'Cada respuesta tiene un agujero ubicado a su lado. Cada agujero tiene un número que indica a qué opción pertenece.',
   },
   {
     n: 4,
@@ -94,7 +93,7 @@ export default function HowItWorksScreen({ onStart, onHome }: HowItWorksScreenPr
                 fontWeight: 400,
                 fontSize: '1.25rem',
                 color: 'rgba(255,255,255,0.8)',
-                maxWidth: '26ch',
+                maxWidth: '44ch',
               }}
             >
               Descubrí cuál es el producto ideal para tu tipo de pelo realizando este breve diagnóstico.
