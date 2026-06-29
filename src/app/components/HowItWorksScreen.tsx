@@ -70,8 +70,8 @@ export default function HowItWorksScreen({ onStart, onHome }: HowItWorksScreenPr
       </motion.button>
 
       {/* Scrollable content */}
-      <div className="relative size-full flex flex-col overflow-y-auto">
-        <div className="flex-1 flex flex-col items-center px-8 pt-16 pb-10">
+      <div className="relative size-full flex flex-col">
+        <div className="flex-1 flex flex-col items-center px-8 pt-16 pb-6 overflow-y-auto">
 
           {/* Header */}
           <motion.div
@@ -101,7 +101,7 @@ export default function HowItWorksScreen({ onStart, onHome }: HowItWorksScreenPr
           </motion.div>
 
           {/* Steps */}
-          <div className="w-full space-y-3 mb-8">
+          <div className="w-full space-y-5 mb-8">
             {steps.map((step, i) => (
               <motion.div
                 key={step.n}
@@ -160,7 +160,10 @@ export default function HowItWorksScreen({ onStart, onHome }: HowItWorksScreenPr
             ¡Muchas gracias!
           </motion.p>
 
-          {/* CTA */}
+        </div>
+
+        {/* CTA — pinned to bottom like all other screens */}
+        <div className="relative px-8 pb-10 pt-4 flex justify-center flex-shrink-0">
           <motion.button
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
@@ -168,17 +171,16 @@ export default function HowItWorksScreen({ onStart, onHome }: HowItWorksScreenPr
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={onStart}
-            className="w-full max-w-md py-5 rounded-full flex items-center justify-center gap-2 uppercase tracking-widest"
+            className="w-full max-w-md py-4 rounded-full flex items-center justify-center gap-2 text-sm uppercase tracking-widest"
             style={{
               fontFamily: "'Poppins', sans-serif",
               fontWeight: 500,
-              fontSize: '1.1rem',
               background: 'rgba(255,255,255,0.9)',
               color: B.primary,
             }}
           >
             Comenzar
-            <ArrowRight className="w-5 h-5" />
+            <ArrowRight className="w-4 h-4" />
           </motion.button>
         </div>
       </div>
