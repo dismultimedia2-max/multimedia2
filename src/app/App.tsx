@@ -7,6 +7,7 @@ import SummaryScreen from './components/SummaryScreen';
 import ResultsScreen from './components/ResultsScreen';
 import EmailCaptureScreen from './components/EmailCaptureScreen';
 import ThankYouScreen from './components/ThankYouScreen';
+import HowItWorksScreen from './components/HowItWorksScreen';
 import { saveToGoogleSheets } from './utils/googleSheets';
 import { triggerDispenser } from './utils/dispenser';
 import { sendDiagnosticEmail } from './utils/email';
@@ -288,7 +289,7 @@ export default function App() {
   const qBgs = [q1Bg, q2Bg, q3Bg, q4Bg, q5Bg, q6Bg];
 
   const screens = [
-    <SplashScreen key="splash" onStart={handleSplashStart} />,
+    <SplashScreen key="splash" onStart={handleSplashStart} onHowItWorks={() => setCurrentScreen(12)} />,
     <LogoTransition key="logo" onComplete={() => setCurrentScreen(2)} />,
     ...questions.map((q, index) => (
       <QuestionScreen
@@ -335,7 +336,12 @@ export default function App() {
       productName={primaryProduct}
       onRestart={handleRestart}
       onHome={handleRestart}
-    />
+    />,
+    <HowItWorksScreen
+      key="how-it-works"
+      onStart={handleSplashStart}
+      onHome={handleRestart}
+    />,
   ];
 
   return (

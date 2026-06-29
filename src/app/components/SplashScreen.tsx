@@ -3,9 +3,10 @@ import splashVideo from '../../imports/ChatGPT_haceme_un_prompt_para__Kling_26_P
 
 interface SplashScreenProps {
   onStart: () => void;
+  onHowItWorks: () => void;
 }
 
-export default function SplashScreen({ onStart }: SplashScreenProps) {
+export default function SplashScreen({ onStart, onHowItWorks }: SplashScreenProps) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -49,19 +50,37 @@ export default function SplashScreen({ onStart }: SplashScreenProps) {
         </p>
       </motion.div>
 
-      {/* Start Button — bottom, above bottle label */}
-      <motion.button
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.7, delay: 0.7 }}
-        whileHover={{ scale: 1.04 }}
-        whileTap={{ scale: 0.97 }}
-        onClick={onStart}
-        className="absolute bottom-32 left-1/2 -translate-x-1/2 w-96 py-7 border border-white/60 text-white rounded-full backdrop-blur-sm bg-white/10 tracking-widest text-xl uppercase transition-colors hover:bg-white/20"
-        style={{ fontFamily: "'Poppins', sans-serif" }}
-      >
-        Comenzar
-      </motion.button>
+      {/* Buttons — bottom */}
+      <div className="absolute bottom-24 left-1/2 -translate-x-1/2 flex flex-col items-center gap-5">
+        <motion.button
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.7, delay: 0.7 }}
+          whileHover={{ scale: 1.04 }}
+          whileTap={{ scale: 0.97 }}
+          onClick={onStart}
+          className="w-96 py-7 border border-white/60 text-white rounded-full backdrop-blur-sm bg-white/10 tracking-widest text-xl uppercase transition-colors hover:bg-white/20"
+          style={{ fontFamily: "'Poppins', sans-serif" }}
+        >
+          Comenzar
+        </motion.button>
+
+        <motion.button
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 1 }}
+          whileTap={{ scale: 0.97 }}
+          onClick={onHowItWorks}
+          className="text-white tracking-widest text-sm uppercase pb-0.5"
+          style={{
+            fontFamily: "'Poppins', sans-serif",
+            borderBottom: '1px solid white',
+            background: 'none',
+          }}
+        >
+          Cómo funciona
+        </motion.button>
+      </div>
     </motion.div>
   );
 }
