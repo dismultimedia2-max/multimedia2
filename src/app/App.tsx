@@ -90,17 +90,6 @@ export default function App() {
     setSelectedOption(answer);
     setShowFeedback(true);
 
-    // 🧪 TEST TEMPORAL FIREBASE — borrar después
-    if (questionIndex === 0) {
-      console.log('🧪 [TEST] Escribiendo en Firebase...');
-      triggerDispenser('TEST_' + answer).then(() => {
-        console.log('✅ [TEST] Firebase OK — chequeá Realtime Database en la consola de Firebase');
-      }).catch((err) => {
-        console.error('❌ [TEST] Firebase ERROR:', err);
-      });
-    }
-    // 🧪 FIN TEST
-
     setTimeout(() => {
       setAnswers(prev => {
         const newAnswers = [...prev];
@@ -211,6 +200,14 @@ export default function App() {
   };
 
   const handleRestart = () => {
+    // Limpiar todos los nodos de preguntas en Firebase para evitar que valores
+    // de la sesión anterior se disparen solos en la próxima sesión.
+    const updates: Record<string, null> = {};
+    questions.forEach((_, i) => { updates[`pregunta${i + 1}`] = null; });
+    dbUpdate(dbRef(db, 'diagnostico'), updates);
+    dbSet(dbRef(db, 'estado/preguntaActiva'), null);
+
+    submittingRef.current = false;
     setCurrentScreen(0);
     setAnswers([]);
     setHairType('');
