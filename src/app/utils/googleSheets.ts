@@ -62,6 +62,21 @@ export interface QuizData {
   submissionId: string;
 }
 
+export async function checkEmailExists(email: string): Promise<boolean> {
+  const googleSheetsUrl = import.meta.env.VITE_GOOGLE_SHEETS_URL;
+  if (!googleSheetsUrl) return false;
+
+  try {
+    const url = `${googleSheetsUrl}?email=${encodeURIComponent(email.toLowerCase().trim())}`;
+    const response = await fetch(url, { redirect: 'follow' });
+    const data = await response.json();
+    return data.exists === true;
+  } catch (error) {
+    console.error('[Sheets] Error chequeando email:', error);
+    return false; // Si falla el chequeo, permitir el envío
+  }
+}
+
 export async function saveToGoogleSheets(data: QuizData): Promise<boolean> {
   // Get the Google Sheets Web App URL from environment variables
   const googleSheetsUrl = import.meta.env.VITE_GOOGLE_SHEETS_URL;

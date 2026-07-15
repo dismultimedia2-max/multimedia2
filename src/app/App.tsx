@@ -8,7 +8,7 @@ import ResultsScreen from './components/ResultsScreen';
 import EmailCaptureScreen from './components/EmailCaptureScreen';
 import ThankYouScreen from './components/ThankYouScreen';
 import HowItWorksScreen from './components/HowItWorksScreen';
-import { saveToGoogleSheets } from './utils/googleSheets';
+import { saveToGoogleSheets, checkEmailExists } from './utils/googleSheets';
 import { triggerDispenser } from './utils/dispenser';
 import { sendDiagnosticEmail } from './utils/email';
 import { db } from './utils/firebase';
@@ -165,11 +165,12 @@ export default function App() {
     submittingRef.current = true;
     setEmailError(null);
 
-    // Verificar si el email ya fue registrado
+    // Verificar si el email ya fue registrado en Google Sheets
     const emailKey = emailToKey(email);
     const emailRef = dbRef(db, `emails/${emailKey}`);
-    const snapshot = await get(emailRef);
-    if (snapshot.exists()) {
+    const alreadyInSheets = await checkEmailExists(email);
+    const snapshotFb = await get(emailRef);
+    if (alreadyInSheets || snapshotFb.exists()) {
       setEmailError('Este email ya participó. ¡Gracias!');
       submittingRef.current = false;
       return;
