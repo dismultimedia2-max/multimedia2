@@ -12,7 +12,7 @@ import { saveToGoogleSheets } from './utils/googleSheets';
 import { triggerDispenser } from './utils/dispenser';
 import { sendDiagnosticEmail } from './utils/email';
 import { db } from './utils/firebase';
-import { onValue, ref as dbRef, set as dbSet, update as dbUpdate } from 'firebase/database';
+import { onValue, ref as dbRef, set as dbSet, update as dbUpdate, get } from 'firebase/database';
 import { calculateHairType, getPrimaryProduct, getHairRoutine } from './utils/hairAnalysis';
 import type { HairRoutine } from './utils/hairAnalysis';
 import q1Bg from '../imports/mascarillas.jpg';
@@ -38,6 +38,14 @@ export default function App() {
     });
   }, []);
 
+  // Limpiar Firebase al cargar la app (cubre recargas de página donde handleRestart no se llama)
+  useEffect(() => {
+    const updates: Record<string, null> = {};
+    for (let i = 1; i <= 6; i++) updates[`pregunta${i}`] = null;
+    dbUpdate(dbRef(db, 'diagnostico'), updates);
+    dbSet(dbRef(db, 'estado/preguntaActiva'), null);
+  }, []);
+
   const [currentScreen, setCurrentScreen] = useState(0);
   const [answers, setAnswers] = useState<Answer[]>([]);
   const [showFeedback, setShowFeedback] = useState(false);
@@ -47,6 +55,7 @@ export default function App() {
   const [primaryProduct, setPrimaryProduct] = useState('');
   const [hairRoutine, setHairRoutine] = useState<HairRoutine | null>(null);
   const [providedEmail, setProvidedEmail] = useState(false);
+  const [emailError, setEmailError] = useState<string | null>(null);
   const isEditingRef = useRef(false);
   const submittingRef = useRef(false);
   const showFeedbackRef = useRef(showFeedback);
@@ -87,6 +96,8 @@ export default function App() {
   ];
 
   const handleAnswer = (answer: string, questionIndex: number) => {
+    if (showFeedbackRef.current) return; // bloqueo sincrónico antes de cualquier render
+    showFeedbackRef.current = true;
     setSelectedOption(answer);
     setShowFeedback(true);
 
@@ -100,6 +111,7 @@ export default function App() {
         };
         return newAnswers;
       });
+      showFeedbackRef.current = false;
       setShowFeedback(false);
       setSelectedOption(null);
 
@@ -145,9 +157,24 @@ export default function App() {
     dbUpdate(dbRef(db, 'diagnostico'), updates);
   };
 
+  const emailToKey = (email: string) =>
+    email.toLowerCase().replace(/\./g, ',').replace(/@/g, '-at-');
+
   const handleEmailSubmit = async (email: string) => {
     if (submittingRef.current) return;
     submittingRef.current = true;
+    setEmailError(null);
+
+    // Verificar si el email ya fue registrado
+    const emailKey = emailToKey(email);
+    const emailRef = dbRef(db, `emails/${emailKey}`);
+    const snapshot = await get(emailRef);
+    if (snapshot.exists()) {
+      setEmailError('Este email ya participó. ¡Gracias!');
+      submittingRef.current = false;
+      return;
+    }
+
     const result = calculateHairType(answers);
     const routine = hairRoutine ?? getHairRoutine(answers);
     const data = {
@@ -167,11 +194,15 @@ export default function App() {
       timestamp: new Date().toISOString(),
       submissionId: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`
     };
+
+    // Guardar email en Firebase para deduplicación
+    await dbSet(emailRef, { timestamp: new Date().toISOString() });
+
     await saveToGoogleSheets(data);
     sendDiagnosticEmail(data);
     await triggerDispenser(primaryProduct);
     setProvidedEmail(true);
-    setCurrentScreen(11); // thank you
+    setCurrentScreen(11);
   };
 
   const handleSkipEmail = () => {
@@ -215,9 +246,9 @@ export default function App() {
     setPrimaryProduct('');
     setHairRoutine(null);
     setProvidedEmail(false);
+    setEmailError(null);
   };
 
-  useEffect(() => { showFeedbackRef.current = showFeedback; }, [showFeedback]);
 
   // Coordina con la ESP32 qué pregunta está activa vía estado/preguntaActiva.
   // Si no estamos en una pantalla de pregunta, señaliza null para que la ESP32 ignore pulsaciones.
@@ -326,6 +357,7 @@ export default function App() {
       onSubmit={handleEmailSubmit}
       onSkip={handleSkipEmail}
       onHome={handleRestart}
+      emailError={emailError}
     />,
     <ThankYouScreen
       key="thanks"

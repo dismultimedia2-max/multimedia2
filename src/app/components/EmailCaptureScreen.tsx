@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
 import { Mail, ArrowRight, Home } from 'lucide-react';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import bgImage from '../../imports/productos_ducha_vertical-1.jpg';
 
 const B = {
@@ -14,14 +14,20 @@ interface EmailCaptureScreenProps {
   onSubmit: (email: string) => void;
   onSkip: () => void;
   onHome?: () => void;
+  emailError?: string | null;
 }
 
-export default function EmailCaptureScreen({ onSubmit, onSkip, onHome }: EmailCaptureScreenProps) {
+export default function EmailCaptureScreen({ onSubmit, onSkip, onHome, emailError }: EmailCaptureScreenProps) {
   const [email, setEmail] = useState('');
   const [isValid, setIsValid] = useState(false);
   const [focused, setFocused] = useState(false);
   const [loading, setLoading] = useState(false);
   const blurTimeout = React.useRef<ReturnType<typeof setTimeout>>();
+
+  // Si llega un error desde afuera, resetear el loading
+  useEffect(() => {
+    if (emailError) setLoading(false);
+  }, [emailError]);
 
   const validateEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
 
@@ -124,9 +130,9 @@ export default function EmailCaptureScreen({ onSubmit, onSkip, onHome }: EmailCa
           className="w-full"
         >
           <div
-            className="relative rounded-full overflow-hidden mb-5 transition-all"
+            className="relative rounded-full overflow-hidden mb-3 transition-all"
             style={{
-              border: `1px solid ${focused || isValid ? 'rgba(255,255,255,0.6)' : 'rgba(255,255,255,0.3)'}`,
+              border: `1px solid ${emailError ? 'rgba(255,100,100,0.7)' : focused || isValid ? 'rgba(255,255,255,0.6)' : 'rgba(255,255,255,0.3)'}`,
               background: focused ? 'white' : 'rgba(255,255,255,0.15)',
               backdropFilter: 'blur(12px)',
               WebkitBackdropFilter: 'blur(12px)',
@@ -145,6 +151,12 @@ export default function EmailCaptureScreen({ onSubmit, onSkip, onHome }: EmailCa
               style={{ fontFamily: "'Poppins', sans-serif", color: focused ? '#1c1917' : 'white' }}
             />
           </div>
+
+          {emailError && (
+            <p className="text-center mb-3 text-sm" style={{ fontFamily: "'Poppins', sans-serif", color: 'rgba(255,180,180,0.95)' }}>
+              {emailError}
+            </p>
+          )}
 
           <motion.button
             type="button"
