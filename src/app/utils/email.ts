@@ -1,8 +1,8 @@
 import emailjs from '@emailjs/browser';
 
-const SERVICE_ID  = 'service_5difpgr';
-const TEMPLATE_ID = 'template_atkzhnp';
-const PUBLIC_KEY  = 't8UUso1Neo04nh8D6';
+const SERVICE_ID  = 'service_ey6vda8';
+const TEMPLATE_ID = 'template_y9rkvrn';
+const PUBLIC_KEY  = '2YO0PNNoZT1AbgL1k';
 
 const BASE_URL = 'https://multimedia2-xo95.onrender.com';
 
