@@ -168,13 +168,13 @@ export default function App() {
     // Verificar si el email ya fue registrado en Google Sheets
     const emailKey = emailToKey(email);
     const emailRef = dbRef(db, `emails/${emailKey}`);
-    // const alreadyInSheets = await checkEmailExists(email);
-    // const snapshotFb = await get(emailRef);
-    // if (alreadyInSheets || snapshotFb.exists()) {
-    //   setEmailError('Este email ya participó. ¡Gracias!');
-    //   submittingRef.current = false;
-    //   return;
-    // }
+    const alreadyInSheets = await checkEmailExists(email);
+    const snapshotFb = await get(emailRef);
+    if (alreadyInSheets || snapshotFb.exists()) {
+      setEmailError('Este email ya participó. ¡Gracias!');
+      submittingRef.current = false;
+      return;
+    }
 
     const result = calculateHairType(answers);
     const routine = hairRoutine ?? getHairRoutine(answers);
